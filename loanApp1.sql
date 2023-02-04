@@ -1,16 +1,15 @@
 
 /* Drop Tables */
 
-DROP TABLE IF EXISTS staff_role;
-DROP TABLE IF EXISTS Department;
 DROP TABLE IF EXISTS loan_record;
-DROP TABLE IF EXISTS page;
 DROP TABLE IF EXISTS Staff;
+DROP TABLE IF EXISTS Department;
+DROP TABLE IF EXISTS page;
 
 
 
 
-
+/* Create Tables */
 
 CREATE TABLE Department
 (
@@ -49,24 +48,17 @@ CREATE TABLE Staff
 	name varchar(50) NOT NULL,
 	email varchar(60) NOT NULL UNIQUE,
 	password varchar(60) NOT NULL,
+	account_status varchar(50),
+	page_id int NOT NULL UNIQUE,
+	dep_id int NOT NULL UNIQUE,
 	PRIMARY KEY (staff_id)
-) WITHOUT OIDS;
-
-
-CREATE TABLE staff_role
-(
-	staff_role_id SERIAL NOT NULL UNIQUE,
-	staff_id int NOT NULL,
-	dep_id int NOT NULL,
-	page_id int NOT NULL,
-	PRIMARY KEY (staff_role_id)
 ) WITHOUT OIDS;
 
 
 
 /* Create Foreign Keys */
 
-ALTER TABLE staff_role
+ALTER TABLE Staff
 	ADD FOREIGN KEY (dep_id)
 	REFERENCES Department (dep_id)
 	ON UPDATE RESTRICT
@@ -74,7 +66,7 @@ ALTER TABLE staff_role
 ;
 
 
-ALTER TABLE staff_role
+ALTER TABLE Staff
 	ADD FOREIGN KEY (page_id)
 	REFERENCES page (page_id)
 	ON UPDATE RESTRICT
@@ -83,14 +75,6 @@ ALTER TABLE staff_role
 
 
 ALTER TABLE loan_record
-	ADD FOREIGN KEY (staff_id)
-	REFERENCES Staff (staff_id)
-	ON UPDATE RESTRICT
-	ON DELETE RESTRICT
-;
-
-
-ALTER TABLE staff_role
 	ADD FOREIGN KEY (staff_id)
 	REFERENCES Staff (staff_id)
 	ON UPDATE RESTRICT

@@ -1,3 +1,8 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
+<%@ include file="/resources/admin/header/header.jsp" %>
+<%@ include file="/resources/admin/header/HeaderAndMainSlider.jsp" %>
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
