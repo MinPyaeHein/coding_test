@@ -13,10 +13,13 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.example.demo.entity.User;
 import com.example.demo.entity.Department;
@@ -40,6 +43,12 @@ public class DepartmentController {
 		super();
 		this.departmentService = departmentService;
 	}
+	
+	  @RequestMapping(value = "/", method = RequestMethod.GET)
+	  public String showWelcomePage(ModelMap model) {
+	        
+	        return "welcome";
+	    }
 	
 	@GetMapping("/departments")
 	public String listDepartments(Model model) {
