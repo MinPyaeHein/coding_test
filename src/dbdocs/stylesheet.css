@@ -1,0 +1,59 @@
+/* javadoc �X�^�C���V�[�g   */
+
+/* �F�โ�t�H�“�g�ศ�ว�ฬ�X�^�C��‘ฎ�ซ�ฬ�f�t�H���g’l�๐�ใ�‘�ซ�ท�้�ษ�อ�A�ฑ�ฑ�ล’่�`�ต���ท�B   */
+
+/* �y�[�W�ฬ�o�b�N�O���E�“�h�ฬ�F   */
+body { background-color: #FFFFFF }
+
+/* �e�[�u���ฬ�F   */
+.TableHeadingColor     { background: #CCCCFF } /* ”Z�ข“ก�F   */
+.TableSubHeadingColor  { background: #EEEEFF } /* ”–�ข“ก�F   */
+.TableRowColor         { background: #FFFFFF } /* ”’   */
+
+/* �ถ‘ค�ฬ�t���[�€�ฬ���X�g�ษ�g—p�ท�้�t�H�“�g   */
+.FrameTitleFont   { font-size: 10pts; font-family: Helvetica, Arial, san-serif }
+.FrameHeadingFont { font-size: 1.2em; font-family: Helvetica, Arial, san-serif; font-weight : bold; }
+.FrameItemFont    { font-size: 10pts; font-family: Helvetica, Arial, san-serif }
+
+/* �t���[�€�ษ�จ�ฏ�้�A�ๆ�่�ฌ�ณ�ข�A�Z���t�ศ�ต�t�H�“�g�ฬ—แ   */
+/* .FrameItemFont  { font-size: 10pt; font-family: Helvetica, Arial, sans-serif } */
+
+/* �i�r�Q�[�V���“�o�[�ฬ�t�H�“�g�ฦ�F   */
+.NavBarCell1    {
+	background-color:#EEEEFF;
+	font-family: Arial, Helvetica, sans-serif; color:#000000;
+	font-weight : bold;
+}/* ”–�ข“ก�F   */
+
+.NavBarCell1Rev {
+	background-color:#00008B;
+	font-family: Arial, Helvetica, sans-serif; color:#FFFFFF;
+	font-weight : bold;
+}/* ”Z�ข�ย   */
+
+.NavBarCell2    {
+	background-color:#FFFFFF;
+	font-family: Arial, Helvetica, sans-serif; background-color:#FFFFFF;
+	font-size : 0.6em;
+	font-weight : bold;
+	padding-left : 0.5em;
+}
+
+.NavBarCell3    { font-family: Arial, Helvetica, sans-serif; background-color:#FFFFFF;}
+
+.AttributeTable {
+	width : 100%;
+}
+
+.AttributeTable TR.TableHeadingColor {
+	font-size : 1.6em;
+	font-wight : bold;
+	text-align : left;
+}
+
+.AttributeTable TH {
+}
+
+.AttributeTable TD {
+}
+
