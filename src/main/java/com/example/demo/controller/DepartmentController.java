@@ -1,16 +1,5 @@
 package com.example.demo.controller;
 
-
-
-import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-
-import javax.servlet.http.HttpServletResponse;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -21,19 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.example.demo.entity.User;
 import com.example.demo.entity.Department;
-import com.example.demo.entity.Staff;
-import com.example.demo.entity.Student;
-import com.example.demo.excel.ExcelGeneratorUser;
-import com.example.demo.excel.ExcelGeneratorStudent;
 import com.example.demo.service.DepartmentService;
-import com.example.demo.service.EmailSenderService;
-import com.example.demo.service.StaffService;
-import com.example.demo.service.StudentService;
-
-
-
 @Controller
 public class DepartmentController {
 	
