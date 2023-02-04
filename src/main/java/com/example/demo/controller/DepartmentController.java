@@ -2,10 +2,14 @@ package com.example.demo.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
 import com.example.demo.entity.Department;
 import com.example.demo.service.DepartmentService;
 @Controller
@@ -18,10 +22,16 @@ public class DepartmentController {
 		this.departmentService = departmentService;
 	}
 	
+	  @RequestMapping(value = "/", method = RequestMethod.GET)
+	  public String showWelcomePage(ModelMap model) {
+	        
+	        return "welcome";
+	    }
+	
 	@GetMapping("/departments")
 	public String listDepartments(Model model) {
 		model.addAttribute("departments", departmentService.getAllDepartments());
-		return "departments";
+		return "welcome";
 	}
 	
 	@GetMapping("/departments/new")
@@ -30,13 +40,15 @@ public class DepartmentController {
 		// create student object to hold student form data
 		Department department = new Department();
 		model.addAttribute("department", department);
-		return "create_department";
+		return "welcome";
 		
 	}
 	
 	@PostMapping("/departments")
 	public String saveDepartment(@ModelAttribute("department") Department department) {
+		
 		 department=departmentService.saveDepartment(department);
+		 
 		return "redirect:/departments";
 	}
 	
@@ -53,7 +65,8 @@ public class DepartmentController {
 		Department existingdepartment = departmentService.getDepartmentById(id);
 		existingdepartment.setDepId(id);
 		existingdepartment.setDepName(department.getDepName());
-		existingdepartment.setDesc(department.getDesc());
+		existingdepartment.setDep_desc(department.getDep_desc());
+		existingdepartment.setDep_code(department.getDep_code());
 		departmentService.updateDepartment(existingdepartment);
 		return "redirect:/departments";		
 	}
