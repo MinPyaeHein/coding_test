@@ -12,11 +12,9 @@
 
 
 <div class="footer">
-	Fixed Footer
-	<h1>
-		<a href="http://www.javaguides.net/p/spring-boot-tutorial.html">
-			Spring Boot Tutorial</a>
-	</h1>
+	<h2>
+		<a href="">Loan Management System</a>
+	</h2>
 </div>
 </body>
 </html>
