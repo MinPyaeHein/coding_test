@@ -3,8 +3,8 @@
 <div class="container">
 	<div class="row">
 	<div class="col-lg-6 mx-auto">
-	<div class="panel panel-primary">
-		<div class="panel-heading">Department Create Form</div>
+	<div class="panel panel-primary" id="departmentPanel">
+		<div class="panel-heading" id="panelTitle"></div>
 		<div class="panel-body">
 			<form id="departmentForm" name="departmentForm">
 				
@@ -32,6 +32,16 @@
 						<div class="row">
 							<div class="col-lg-10">
 								<div class="form-group">
+									<label for="name">Code</label> <input type="text"
+										class="form-control" id="depCode" name="depCode"
+										placeholder="Enter  Code">
+								</div>
+							</div>
+						</div>
+						
+						<div class="row">
+							<div class="col-lg-10">
+								<div class="form-group">
 									<label for="name">Description</label> <input type="text"
 										class="form-control" id="depDesc" name="depDesc"
 										placeholder="Enter  Description">
@@ -52,6 +62,8 @@
 	</div>
 	</div>
 	
+	<button type="button" id="addNewDepartment" onclick="newDepartmentbtn();" class="btn btn-success">Add New</button>
+	
 		<div class="row">
 			<div class="col-md-12">
 				<table class="table table-hover">
@@ -59,6 +71,7 @@
 							<tr>
 								<th scope="col">ID</th>
 								<th scope="col">Name</th>
+								<th scope="col">Code</th>
 								<th scope="col">Description</th>
 								<th scope="col"></th>
 								<th scope="col"></th>
@@ -80,9 +93,9 @@
 
 			getAllrecord();
 			
-			$('#saveDepartment').show();
-			$('#updateDepartment').hide();
-			$('#idfield').hide();
+			$('#addNewDepartment').show();
+			$('#departmentPanel').hide();
+
 
 			$('#saveDepartment').click(function() {
 				$.ajax({
@@ -92,11 +105,16 @@
 
 						depId : $("#depId").val(),
 						depName : $("#depName").val(),
+						depCode : $("#depCode").val(),
 						depDesc : $("#depDesc").val()
 					},
 					success : function(result) {
 						getAllrecord();
+						
+						$('#departmentPanel').hide();
+						$('#addNewDepartment').show();
 						$('#departmentForm')[0].reset()
+						
 					},
 					error : function(err) {
 						alert("error is" + err)
@@ -119,6 +137,7 @@
 						$("#tbl_DeptList").append(
 								'<tr class="tr"> <td>' + data[i].depId
 										+ '</td> <td>' + data[i].depName
+										+ '</td> <td>' + data[i].depCode
 										+ '</td> <td>' + data[i].depDesc
 										+ '</td> <td><input type="button" class="btn btn-warning" onclick="editDepartment('
 										+ data[i].depId
@@ -145,16 +164,35 @@
 						
 					 $("#depId").val(response.depId),
 					 $("#depName").val(response.depName), 
+					 $("#depCode").val(response.depCode), 
 					 $("#depDesc").val(response.depDesc)
 					 
+					 
+					const div = document.getElementById("panelTitle");
+					div.innerHTML = "Edit Department Form";
+					$('#departmentPanel').show();
 					$('#saveDepartment').hide();
 					$('#updateDepartment').show();
+					$('#addNewDepartment').show();
 					$('#idfield').show();
+					
 				},
 				error : function(err) {
 					alert("error is" + err)
 				}
 			});
+		}
+		
+		function newDepartmentbtn()
+		{
+			const div = document.getElementById("panelTitle");
+			div.innerHTML = "Create Department Form";
+			$('#departmentPanel').show();
+			$('#saveDepartment').show();
+			$('#updateDepartment').hide();
+			$('#addNewDepartment').hide();
+			$('#idfield').hide();
+			$('#departmentForm')[0].reset()
 		}
 		
 		function updateDepartmentbtn() {
@@ -165,14 +203,16 @@
 				data : {
 					depId : $("#depId").val(),
 					depName : $("#depName").val(),
+					depCode : $("#depCode").val(),
 					depDesc : $("#depDesc").val()
 				},
 				success : function(result) {
 					
 					getAllrecord();
-					
-					$('#saveDepartment').show();
+					$('#departmentPanel').hide();
+					$('#saveDepartment').hide();
 					$('#updateDepartment').hide();
+					$('#addNewDepartment').show();
 					$('#idfield').hide();
 					$('#departmentForm')[0].reset()
 				},
@@ -188,6 +228,12 @@
 				url : "departments/" + id,
 				success : function(response) {
 					getAllrecord();
+					$('#departmentPanel').hide();
+					$('#saveDepartment').hide();
+					$('#updateDepartment').hide();
+					$('#addNewDepartment').show();
+					$('#idfield').hide();
+					$('#departmentForm')[0].reset()
 				},
 				error : function(err) {
 					alert("error is" + err)
