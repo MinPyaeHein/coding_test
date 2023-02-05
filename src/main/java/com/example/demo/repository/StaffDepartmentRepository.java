@@ -14,7 +14,7 @@ import org.springframework.stereotype.Repository;
 import com.example.demo.entity.StaffDepartment;
 //@Repository
 public interface StaffDepartmentRepository extends JpaRepository<StaffDepartment, Long>{
-/*	@Modifying
+/*@Modifying
 	@Query("delete from staff_department b where b.staff_id=:staffId")
 	void deleteStaffDepartmentByStaff(@Param("staffId")Long staffId );
 */

@@ -40,11 +40,12 @@ public class StaffController {
 		
 	}
 	
-	@PostMapping("/staffSavePath")
+	@GetMapping("/staffSavePath")
 	public String saveStaff(@ModelAttribute("staff") StaffRegForm staffRegForm) {
 		staffRegForm.setName("Min Min");
 		staffRegForm.setPassword("234455");
 		staffRegForm.setEmail("minpyahein.ucsdawei@gmail.com");
+		staffRegForm.setGroupId("1");
 		List<String> idList=new ArrayList<>();
 		idList.add("1");
 		idList.add("2");
@@ -60,11 +61,19 @@ public class StaffController {
 		return "edit_staff";
 	}
 
-	@PostMapping("/staffs/{id}")
+	@PostMapping("/staffUpdPath")
 	public String updateStaff(@PathVariable Long id,
 			@ModelAttribute("staff")StaffRegForm staffRegForm,
 			Model model) {
-		
+		staffRegForm.setName("Min Min Upd");
+		staffRegForm.setPassword("234455");
+		staffRegForm.setEmail("minpyahein.ucsdawei@gmail.com");
+		staffRegForm.setGroupId("1");
+		List<String> idList=new ArrayList<>();
+		idList.add("1");
+		idList.add("2");
+		staffRegForm.setPages(idList);
+		staffRegForm.setDepartments(idList);
 		staffService.updateStaff(staffRegForm);
 		return "redirect:/staffs";		
 	}

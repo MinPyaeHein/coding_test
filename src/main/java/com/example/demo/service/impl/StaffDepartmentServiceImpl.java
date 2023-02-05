@@ -28,8 +28,8 @@ public class StaffDepartmentServiceImpl implements StaffDepartmentService{
 		  return   staffDepartmentRepository.findAll();
 	}
 	@Override
-	public StaffDepartment saveStaffDepartment(StaffDepartment staffDepartment) {
-		return staffDepartmentRepository.save(staffDepartment);
+	public void saveStaffDepartment(StaffDepartment staffDepartment) {
+		 staffDepartmentRepository.save(staffDepartment);
 	}
 	@Override
 	public StaffDepartment getStaffDepartmentById(Long id) {

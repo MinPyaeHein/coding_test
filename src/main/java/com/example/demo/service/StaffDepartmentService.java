@@ -9,7 +9,7 @@ import com.example.demo.entity.StaffDepartment;
 public interface StaffDepartmentService {
 	List<StaffDepartment> getAllstaffDepartments();
 	
-	StaffDepartment saveStaffDepartment(StaffDepartment staffDepartment);
+	void saveStaffDepartment(StaffDepartment staffDepartment);
 	
 	StaffDepartment getStaffDepartmentById(Long id);
 	
