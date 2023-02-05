@@ -48,6 +48,7 @@ public class DepartmentController {
 	        return "welcome";
 	    }
 	
+
 	@RequestMapping(value = "/getDeptlList", headers = { "Accept=application/json" })
 	public @ResponseBody List<Department> listDepartments(HttpServletRequest request, HttpServletResponse response) {
 
@@ -57,9 +58,15 @@ public class DepartmentController {
 		GenericService<List<Department>> result = this.departmentService.searchByCriteria(request);
 	
 		return result.getDatum();
+	}
 
 	
 		
+	@GetMapping("/departments")
+	public String listDepartments(Model model) {
+		model.addAttribute("departments", departmentService.getAllDepartments());
+		return "welcome";
+
 	}
 	
 	@GetMapping("/departments/new")
@@ -68,7 +75,7 @@ public class DepartmentController {
 		// create student object to hold student form data
 		Department department = new Department();
 		model.addAttribute("department", department);
-		return "create_department";
+		return "welcome";
 		
 	}
 	
@@ -86,11 +93,12 @@ public class DepartmentController {
 		return departmentService.getDepartmentById(id);
 	}
 
+
 	@PatchMapping("/updateDepartment")
 	@ResponseBody
 	public String updateDepartment(@ModelAttribute("updateDepartment")Department department) {
 		departmentService.updateDepartment(department);
-		return "success";		
+		return "success";	
 	}
 	
 
