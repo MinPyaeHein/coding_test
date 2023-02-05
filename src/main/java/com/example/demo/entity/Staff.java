@@ -32,6 +32,7 @@ import lombok.ToString;
 public class Staff implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "staff_id", unique = true, nullable = false)
 	private Long staffId;
 	
 	@Column(name = "name")

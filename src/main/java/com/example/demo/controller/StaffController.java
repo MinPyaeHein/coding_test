@@ -61,10 +61,11 @@ public class StaffController {
 		return "edit_staff";
 	}
 
-	@PostMapping("/staffUpdPath")
-	public String updateStaff(@PathVariable Long id,
+	@GetMapping("/staffUpdPath")
+	public String updateStaff(
 			@ModelAttribute("staff")StaffRegForm staffRegForm,
 			Model model) {
+		staffRegForm.setStaffId("1");
 		staffRegForm.setName("Min Min Upd");
 		staffRegForm.setPassword("234455");
 		staffRegForm.setEmail("minpyahein.ucsdawei@gmail.com");
@@ -72,6 +73,8 @@ public class StaffController {
 		List<String> idList=new ArrayList<>();
 		idList.add("1");
 		idList.add("2");
+		idList.add("3");
+		
 		staffRegForm.setPages(idList);
 		staffRegForm.setDepartments(idList);
 		staffService.updateStaff(staffRegForm);

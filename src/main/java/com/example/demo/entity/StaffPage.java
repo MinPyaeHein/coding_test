@@ -31,8 +31,8 @@ public class StaffPage implements Serializable {
 	private StaffPageId id;
 	
 	@EmbeddedId
-	@AttributeOverrides({ @AttributeOverride(name = "pageId", column = @Column(name = "page_id", nullable = false)),
-			@AttributeOverride(name = "staffId", column = @Column(name = "staff_id", nullable = false)) })
+	@AttributeOverrides({ @AttributeOverride(name = "staffId", column = @Column(name = "staff_id", nullable = false)),
+			@AttributeOverride(name = "pageId", column = @Column(name = "page_id", nullable = false)) })
 	public StaffPageId getId() {
 		return this.id;
 	}

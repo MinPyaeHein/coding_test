@@ -12,10 +12,10 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.example.demo.entity.StaffDepartment;
-//@Repository
+@Repository
 public interface StaffDepartmentRepository extends JpaRepository<StaffDepartment, Long>{
-/*@Modifying
-	@Query("delete from staff_department b where b.staff_id=:staffId")
+    @Modifying
+	@Query(value="delete from staff_department b where b.staff_id=:staffId",nativeQuery = true)
 	void deleteStaffDepartmentByStaff(@Param("staffId")Long staffId );
 
 	

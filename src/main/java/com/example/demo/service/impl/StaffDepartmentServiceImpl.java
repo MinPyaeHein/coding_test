@@ -3,6 +3,8 @@ package com.example.demo.service.impl;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.demo.entity.Page;
@@ -45,8 +47,9 @@ public class StaffDepartmentServiceImpl implements StaffDepartmentService{
 		
 	}
 	@Override
+	@Transactional
 	public void deleteStaffDepartmentByStaffId(Long id) {
-		//staffDepartmentRepository.deleteStaffDepartmentByStaff(id);
+		staffDepartmentRepository.deleteStaffDepartmentByStaff(id);
 		
 	}
 	

@@ -90,7 +90,7 @@ public class StaffServiceImpl implements StaffService{
 	@Override
 	public Staff updateStaff(StaffRegForm staffRegForm) {
 	Staff staff=getStaffById(Long.parseLong(staffRegForm.getStaffId()));
-		
+		System.out.println("staff.getName()"+staff.getName()+"="+staff.getStaffId());
 		staff.setName(staffRegForm.getName());
 		staff.setEmail(staffRegForm.getEmail());
 		staff.setPassword(staffRegForm.getPassword());
@@ -99,18 +99,11 @@ public class StaffServiceImpl implements StaffService{
 		staff=staffRepository.save(staff);
 		
 		staffDepartmentService.deleteStaffDepartmentByStaffId(staff.getStaffId());
+		staffPageService.deleteStaffPageById(staff.getStaffId());
 		
-		for(String s : staffRegForm.getPages()) {
-			Page page=pageService.getPageById(Long.parseLong(s));
-			StaffPage staffPage=new StaffPage();
-			StaffPageId staffPageId=new StaffPageId();
-			staffPageId.setPageId(Long.parseLong(s));
-			staffPageId.setStaffId(staff.getStaffId());
-			staffPage.setId(staffPageId);
-			staffPageService.saveStaffPage(staffPage);
-		}
 		
 		for(String d: staffRegForm.getDepartments()) {
+			System.out.println(d);
 			Department department =departmentServic.getDepartmentById(Long.parseLong(d));
 			StaffDepartment staffDepartment=new StaffDepartment();
 			StaffDepartmentId staffDepartmentId=new StaffDepartmentId();
@@ -120,14 +113,29 @@ public class StaffServiceImpl implements StaffService{
 			staffDepartment.setId(staffDepartmentId);
 			staffDepartmentService.saveStaffDepartment(staffDepartment);
 		}
+		
+		for(String s : staffRegForm.getPages()) {
+		//	Page page=pageService.getPageById(Long.parseLong(s));
+			StaffPage staffPage=new StaffPage();
+			StaffPageId staffPageId=new StaffPageId();
+			staffPageId.setPageId(Long.parseLong(s));
+			staffPageId.setStaffId(staff.getStaffId());
+			staffPage.setId(staffPageId);
+			staffPageService.saveStaffPage(staffPage);
+		}
+		
+		
 	
-		return staffRepository.save(staff);
+		return staff;
 	}
 	@Override
 	public void deleteStaffById(Long id) {
 		staffRepository.deleteById(id);	
 		
 	}
+
+
+	
 	
 
 

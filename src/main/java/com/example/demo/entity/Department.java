@@ -35,7 +35,7 @@ public class Department implements Serializable {
 	@Column(name="dep_desc")
 	private String depDesc;
 	
-	@Column(name="dept_code")
+	@Column(name="dep_code")
 	private String depCode;
 	
 	
