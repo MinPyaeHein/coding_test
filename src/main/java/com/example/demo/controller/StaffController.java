@@ -1,15 +1,22 @@
 package com.example.demo.controller;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import com.example.demo.entity.Group;
 import com.example.demo.entity.Staff;
+import com.example.demo.form.StaffRegForm;
+import com.example.demo.service.GroupService;
 import com.example.demo.service.StaffService;
 @Controller
 public class StaffController {
-	
 	private StaffService staffService;
 	
 	public StaffController(StaffService staffService) {
@@ -26,16 +33,24 @@ public class StaffController {
 	@GetMapping("/staffs/new")
 	public String createStaffForm(Model model) {
 		
-		// create student object to hold student form data
+
 		Staff staff = new Staff();
 		model.addAttribute("staff", staff);
 		return "create_staff";
 		
 	}
 	
-	@PostMapping("/staffs")
-	public String saveStaff(@ModelAttribute("staff") Staff staff) {
-		Staff s=staffService.saveStaff(staff);
+	@PostMapping("/staffSavePath")
+	public String saveStaff(@ModelAttribute("staff") StaffRegForm staffRegForm) {
+		staffRegForm.setName("Min Min");
+		staffRegForm.setPassword("234455");
+		staffRegForm.setEmail("minpyahein.ucsdawei@gmail.com");
+		List<String> idList=new ArrayList<>();
+		idList.add("1");
+		idList.add("2");
+		staffRegForm.setPages(idList);
+		staffRegForm.setDepartments(idList);
+		Staff s=staffService.saveStaff(staffRegForm);
 		return "redirect:/staffs";
 	}
 	
@@ -47,14 +62,10 @@ public class StaffController {
 
 	@PostMapping("/staffs/{id}")
 	public String updateStaff(@PathVariable Long id,
-			@ModelAttribute("staff")Staff staff,
+			@ModelAttribute("staff")StaffRegForm staffRegForm,
 			Model model) {
-		Staff existingStaff = staffService.getStaffById(id);
-		existingStaff.setStaffId(id);
-		existingStaff.setName(staff.getName());
-		existingStaff.setEmail(staff.getEmail());
-		existingStaff.setPassword(staff.getPassword());
-		staffService.updateStaff(existingStaff);
+		
+		staffService.updateStaff(staffRegForm);
 		return "redirect:/staffs";		
 	}
 	

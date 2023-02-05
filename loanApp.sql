@@ -19,7 +19,7 @@ CREATE TABLE Department
 	dep_id SERIAL NOT NULL UNIQUE,
 	dep_name varchar(50) NOT NULL,
 	dep_desc varchar(50) NOT NULL,
-	dep_code varchar(40) NOT NULL,
+	dept_code varchar(40) NOT NULL,
 	PRIMARY KEY (dep_id)
 ) WITHOUT OIDS;
 
@@ -52,11 +52,9 @@ CREATE TABLE Staff
 (
 	staff_id SERIAL NOT NULL UNIQUE,
 	name varchar(50) NOT NULL,
-	email varchar(60) NOT NULL UNIQUE,
+	email varchar(60) NOT NULL,
 	password varchar(60) NOT NULL,
 	account_status varchar(50),
-	created_at date,
-	updated_at date,
 	group_id int NOT NULL UNIQUE,
 	PRIMARY KEY (staff_id)
 ) WITHOUT OIDS;

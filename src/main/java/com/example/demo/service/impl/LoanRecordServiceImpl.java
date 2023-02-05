@@ -10,9 +10,13 @@ import com.example.demo.repository.LoanRecordRepository;
 import com.example.demo.service.LoanRecordService;
 @Service
 public class LoanRecordServiceImpl implements LoanRecordService{
-	@Autowired
+	
 	private LoanRecordRepository loanRecordRepository;
 	
+	public LoanRecordServiceImpl(LoanRecordRepository loanRecordRepository) {
+		super();
+		this.loanRecordRepository = loanRecordRepository;
+	}
 	@Override
 	public List<LoanRecord> getAllLoanRecords() {
 		 return   loanRecordRepository.findAll();

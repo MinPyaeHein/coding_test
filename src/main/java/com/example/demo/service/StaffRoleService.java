@@ -3,17 +3,17 @@ package com.example.demo.service;
 
 
 import java.util.List;
-import com.example.demo.entity.StaffRole;
+import com.example.demo.entity.StaffPage;
 
 
 public interface StaffRoleService {
-	List<StaffRole> getAllStaffs();
+	List<StaffPage> getAllStaffs();
 	
-	StaffRole saveStaff(StaffRole staffRole);
+	StaffPage saveStaff(StaffPage staffRole);
 	
-	StaffRole getStaffById(Long id);
+	StaffPage getStaffById(Long id);
 	
-	StaffRole updateStaff(StaffRole staffRole);
+	StaffPage updateStaff(StaffPage staffRole);
 	
 	void deleteStaffById(Long id);
 	

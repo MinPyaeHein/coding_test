@@ -1,14 +1,15 @@
 package com.example.demo.service;
 import java.util.List;
 import com.example.demo.entity.Staff;
+import com.example.demo.form.StaffRegForm;
 public interface StaffService {
 	List<Staff> getAllStaffs();
 	
-	Staff saveStaff(Staff staff);
+	Staff saveStaff(StaffRegForm staffRegForm );
 	
 	Staff getStaffById(Long id);
 	
-	Staff updateStaff(Staff staff);
+	Staff updateStaff(StaffRegForm staffRegForm);
 	
 	void deleteStaffById(Long id);
 	

@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -14,7 +15,7 @@ import com.example.demo.entity.Department;
 import com.example.demo.service.DepartmentService;
 @Controller
 public class DepartmentController {
-	
+
 	private DepartmentService departmentService;
 	
 	public DepartmentController(DepartmentService departmentService) {

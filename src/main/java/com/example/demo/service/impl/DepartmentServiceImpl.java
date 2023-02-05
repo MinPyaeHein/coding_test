@@ -9,9 +9,13 @@ import com.example.demo.repository.DepartmentRepository;
 import com.example.demo.service.DepartmentService;
 @Service
 public class DepartmentServiceImpl implements DepartmentService{
-	@Autowired
+	
 	private DepartmentRepository departmentRepository;
 	
+	public DepartmentServiceImpl(DepartmentRepository departmentRepository) {
+		super();
+		this.departmentRepository = departmentRepository;
+	}
 	@Override
 	public List<Department> getAllDepartments() {
 		// TODO Auto-generated method stub

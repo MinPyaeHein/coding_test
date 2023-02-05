@@ -1,6 +1,7 @@
 package com.example.demo.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -13,6 +14,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -42,5 +45,15 @@ public class Staff implements Serializable {
 	
 	@Column(name = "account_status")
 	private String accountStatus;
+	
+	@Temporal(TemporalType.DATE)
+	@Column(name="created_at", nullable = false, length = 10)
+	private Date createAt;
+	
+	@Temporal(TemporalType.DATE)
+	@Column(name="updated_at", nullable = false, length = 10)
+	private Date updateAt;
+	
+	
 	
 }

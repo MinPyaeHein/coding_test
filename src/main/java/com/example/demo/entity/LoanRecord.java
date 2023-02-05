@@ -30,7 +30,7 @@ import lombok.ToString;
 public class LoanRecord implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer loanId;
+	private Long loanId;
 	@Column(name = "loan_type")
 	private String loanType;
 	
@@ -44,15 +44,20 @@ public class LoanRecord implements Serializable {
 	private String address;
 	
 	@Temporal(TemporalType.DATE)
-	@Column(name="created_date", nullable = false, length = 10)
-	private Date apply_date;
+	@Column(name="apply_date", nullable = false, length = 10)
+	private Date applyDate;
 	
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="set_date", nullable = false, length = 10)
-	private Date setDate;
+	@Temporal(TemporalType.DATE)
+	@Column(name="create_at", nullable = true,length = 10)
+	private Date createAt;
+	
+	@Temporal(TemporalType.DATE)
+	@Column(name="update_at", nullable = true,length = 10)
+	private Date updateAt;
+	
 	
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "staff_id", nullable = false)
+	@JoinColumn(name = "staff_id",  nullable = false, insertable = false, updatable = false)
 	private Staff staff;
 	
 }
