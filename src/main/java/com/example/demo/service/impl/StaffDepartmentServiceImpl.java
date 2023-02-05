@@ -46,7 +46,7 @@ public class StaffDepartmentServiceImpl implements StaffDepartmentService{
 	}
 	@Override
 	public void deleteStaffDepartmentByStaffId(Long id) {
-		staffDepartmentRepository.deleteStaffDepartmentByStaff(id);
+		//staffDepartmentRepository.deleteStaffDepartmentByStaff(id);
 		
 	}
 	
