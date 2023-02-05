@@ -45,42 +45,21 @@ public class DepartmentController {
 	private Logger logger = LoggerFactory.getLogger(DepartmentController.class);
 	
 	
-	  @RequestMapping(value = "/", method = RequestMethod.GET)
+	  @RequestMapping(value = "/departmentManagement", method = RequestMethod.GET)
 	  public String showWelcomePage(ModelMap model) {
 	        
-	        return "welcome";
-	    }
+	        return "departments";
+	  }
 	
 
 	@RequestMapping(value = "/getDeptlList", headers = { "Accept=application/json" })
 	public @ResponseBody List<Department> listDepartments(HttpServletRequest request, HttpServletResponse response) {
-
-		DatatableModelBean datatableModelBean = new DatatableModelBean();
-		
 		
 		GenericService<List<Department>> result = this.departmentService.searchByCriteria(request);
 	
 		return result.getDatum();
 	}
 
-	
-		
-	@GetMapping("/departments")
-	public String listDepartments(Model model) {
-		model.addAttribute("departments", departmentService.getAllDepartments());
-		return "welcome";
-
-	}
-	
-	@GetMapping("/departments/new")
-	public String createDepartmentForm(Model model) {
-		
-		// create student object to hold student form data
-		Department department = new Department();
-		model.addAttribute("department", department);
-		return "welcome";
-		
-	}
 	
 	
 	@PostMapping("/insertDepartment")
