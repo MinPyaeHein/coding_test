@@ -10,35 +10,35 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class StaffDepartmentId implements java.io.Serializable {
 
-	private int staffId;
+	private Long staffId;
 	
 
-	private int depId;
+	private Long depId;
 
 	public StaffDepartmentId() {
 	}
 
 	
-	public StaffDepartmentId(int staffId, int depId) {
+	public StaffDepartmentId(Long staffId, Long depId) {
 		
 		this.staffId = staffId;
 		this.depId = depId;
 	}
 	@Column(name = "staff_id", nullable = false)
-	public int getStaffId() {
+	public Long getStaffId() {
 		return this.staffId;
 	}
 
-	public void setStaffId(int staffId) {
+	public void setStaffId(Long staffId) {
 		this.staffId = staffId;
 	}
 
 	@Column(name = "dep_id", nullable = false)
-	public int getDepId() {
+	public Long getDepId() {
 		return this.depId;
 	}
 
-	public void setDepId(int depId) {
+	public void setDepId(Long depId) {
 		this.depId = depId;
 	}
 
@@ -54,12 +54,6 @@ public class StaffDepartmentId implements java.io.Serializable {
 		return (this.getStaffId() == castOther.getStaffId()) && (this.getDepId() == castOther.getDepId());
 	}
 
-	public int hashCode() {
-		int result = 17;
-
-		result = 37 * result + this.getStaffId();
-		result = 37 * result + this.getDepId();
-		return result;
-	}
+	
 
 }

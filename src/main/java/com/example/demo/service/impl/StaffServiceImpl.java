@@ -11,12 +11,15 @@ import com.example.demo.entity.Group;
 import com.example.demo.entity.Page;
 import com.example.demo.entity.Staff;
 import com.example.demo.entity.StaffDepartment;
+import com.example.demo.entity.StaffDepartmentId;
 import com.example.demo.entity.StaffPage;
+import com.example.demo.entity.StaffPageId;
 import com.example.demo.form.StaffRegForm;
 import com.example.demo.repository.PageRepository;
 import com.example.demo.repository.StaffPageRepository;
 import com.example.demo.repository.StaffRepository;
 import com.example.demo.service.DepartmentService;
+import com.example.demo.service.GroupService;
 import com.example.demo.service.PageService;
 import com.example.demo.service.StaffDepartmentService;
 import com.example.demo.service.StaffPageService;
@@ -24,25 +27,23 @@ import com.example.demo.service.StaffService;
 @Service
 public class StaffServiceImpl implements StaffService{
 	
-
+	private PageService pageService;
+	private DepartmentService departmentServic;
+	private StaffRepository staffRepository;
 	private StaffDepartmentService staffDepartmentService;
-	
-	public StaffServiceImpl(StaffDepartmentService staffDepartmentService, PageService pageService,
-			DepartmentService departmentServic, StaffPageService staffPageService, StaffRepository staffRepository) {
+	private StaffPageService staffPageService;
+	private GroupService groupService;
+	public StaffServiceImpl(StaffDepartmentService staffDepartmentService,
+			DepartmentService departmentServic, StaffPageService staffPageService,GroupService groupService,PageService pageService, StaffRepository staffRepository) {
 		super();
 		this.staffDepartmentService = staffDepartmentService;
-		this.pageService = pageService;
 		this.departmentServic = departmentServic;
 		this.staffPageService = staffPageService;
 		this.staffRepository = staffRepository;
+		this.groupService=groupService;
+		this.pageService=pageService;
 	}
-	private PageService pageService;
-
-	private DepartmentService departmentServic;
-
-	private StaffPageService staffPageService;
-
-	private StaffRepository staffRepository;
+	
 	
 	@Override
 	public List<Staff> getAllStaffs() {
@@ -51,32 +52,36 @@ public class StaffServiceImpl implements StaffService{
 	@Override
 	public Staff saveStaff(StaffRegForm staffRegForm) {
 		Staff staff=new Staff();
-		
 		staff.setName(staffRegForm.getName());
 		staff.setEmail(staffRegForm.getEmail());
 		staff.setPassword(staffRegForm.getPassword());
 		staff.setCreateAt(new Date());
+		staff.setUpdateAt(new Date());
+		Group g=groupService.getGroupById(Long.parseLong(staffRegForm.getGroupId()));
+		staff.setGroup(g);
 		staff=staffRepository.save(staff);
-		Group g=groupService.getGroupById(Long.parseLong("1"));
-		
-		
 		for(String s : staffRegForm.getPages()) {
 			Page page=pageService.getPageById(Long.parseLong(s));
 			StaffPage staffPage=new StaffPage();
-			staffPage.setPage(page);	
-			staffPage.setStaff(staff);
+			StaffPageId staffPageId=new StaffPageId();
+			staffPageId.setPageId(Long.parseLong(s));
+			staffPageId.setStaffId(staff.getStaffId());
+			staffPage.setId(staffPageId);
 			staffPageService.saveStaffPage(staffPage);
 		}
 		
 		for(String d: staffRegForm.getDepartments()) {
 			Department department =departmentServic.getDepartmentById(Long.parseLong(d));
 			StaffDepartment staffDepartment=new StaffDepartment();
+			StaffDepartmentId staffDepartmentId=new StaffDepartmentId();
+			staffDepartmentId.setDepId(department.getDepId());
+			staffDepartmentId.setStaffId(staff.getStaffId());
 			staffDepartment.setDepartment(department);
-			staffDepartment.setStaff(staff);
+			staffDepartment.setId(staffDepartmentId);
 			staffDepartmentService.saveStaffDepartment(staffDepartment);
 		}
 	
-		return staffRepository.save(staff);
+		return staff;
 	}
 	@Override
 	public Staff getStaffById(Long id) {
@@ -89,7 +94,8 @@ public class StaffServiceImpl implements StaffService{
 		staff.setName(staffRegForm.getName());
 		staff.setEmail(staffRegForm.getEmail());
 		staff.setPassword(staffRegForm.getPassword());
-		staff.setCreateAt(new Date());
+		staff.setCreateAt(staff.getCreateAt());
+		staff.setUpdateAt(new Date());
 		staff=staffRepository.save(staff);
 		
 		staffDepartmentService.deleteStaffDepartmentByStaffId(staff.getStaffId());
@@ -97,16 +103,21 @@ public class StaffServiceImpl implements StaffService{
 		for(String s : staffRegForm.getPages()) {
 			Page page=pageService.getPageById(Long.parseLong(s));
 			StaffPage staffPage=new StaffPage();
-			staffPage.setPage(page);	
-			staffPage.setStaff(staff);
+			StaffPageId staffPageId=new StaffPageId();
+			staffPageId.setPageId(Long.parseLong(s));
+			staffPageId.setStaffId(staff.getStaffId());
+			staffPage.setId(staffPageId);
 			staffPageService.saveStaffPage(staffPage);
 		}
 		
 		for(String d: staffRegForm.getDepartments()) {
 			Department department =departmentServic.getDepartmentById(Long.parseLong(d));
 			StaffDepartment staffDepartment=new StaffDepartment();
+			StaffDepartmentId staffDepartmentId=new StaffDepartmentId();
+			staffDepartmentId.setDepId(department.getDepId());
+			staffDepartmentId.setStaffId(staff.getStaffId());
 			staffDepartment.setDepartment(department);
-			staffDepartment.setStaff(staff);
+			staffDepartment.setId(staffDepartmentId);
 			staffDepartmentService.saveStaffDepartment(staffDepartment);
 		}
 	

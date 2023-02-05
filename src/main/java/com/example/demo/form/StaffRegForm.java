@@ -12,6 +12,7 @@ import lombok.ToString;
 
 public class StaffRegForm {
 private String staffId;
+private String groupId;
 private String name;
 private String email;
 private String password;
@@ -49,6 +50,12 @@ public void setPages(List<String> pages) {
 }
 public List<String> getDepartments() {
 	return departments;
+}
+public String getGroupId() {
+	return groupId;
+}
+public void setGroupId(String groupId) {
+	this.groupId = groupId;
 }
 public void setDepartments(List<String> departments) {
 	this.departments = departments;

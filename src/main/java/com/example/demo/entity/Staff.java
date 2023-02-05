@@ -54,6 +54,10 @@ public class Staff implements Serializable {
 	@Column(name="updated_at", nullable = false, length = 10)
 	private Date updateAt;
 	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "group_id", nullable = false)
+	private Group group;
+	
 	
 	
 }

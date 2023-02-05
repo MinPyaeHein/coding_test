@@ -30,8 +30,8 @@ public class StaffPageServiceImpl implements StaffPageService{
 		  return   staffPageRepository.findAll();
 	}
 	@Override
-	public StaffPage saveStaffPage(StaffPage page) {
-		return staffPageRepository.save(page);
+	public void  saveStaffPage(StaffPage page) {
+		 staffPageRepository.save(page);
 	}
 	@Override
 	public StaffPage getStaffPageById(Long id) {

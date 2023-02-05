@@ -9,7 +9,7 @@ import com.example.demo.entity.StaffPage;
 public interface StaffPageService {
 	List<StaffPage> getAllStaffPages();
 	
-	StaffPage saveStaffPage(StaffPage staffPage);
+	void saveStaffPage(StaffPage staffPage);
 	
 	StaffPage getStaffPageById(Long id);
 	
