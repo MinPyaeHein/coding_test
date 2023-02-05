@@ -17,6 +17,6 @@ public interface StaffDepartmentRepository extends JpaRepository<StaffDepartment
 /*@Modifying
 	@Query("delete from staff_department b where b.staff_id=:staffId")
 	void deleteStaffDepartmentByStaff(@Param("staffId")Long staffId );
-*/
+
 	
 }
