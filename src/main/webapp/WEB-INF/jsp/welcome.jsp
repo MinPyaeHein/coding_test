@@ -33,7 +33,7 @@
 							<div class="col-lg-10">
 								<div class="form-group">
 									<label for="name">Description</label> <input type="text"
-										class="form-control" id="desc" name="desc"
+										class="form-control" id="depDesc" name="depDesc"
 										placeholder="Enter  Description">
 								</div>
 							</div>
@@ -60,6 +60,8 @@
 								<th scope="col">ID</th>
 								<th scope="col">Name</th>
 								<th scope="col">Description</th>
+								<th scope="col"></th>
+								<th scope="col"></th>
 							
 							</tr>
 						</thead>
@@ -90,7 +92,7 @@
 
 						depId : $("#depId").val(),
 						depName : $("#depName").val(),
-						desc : $("#desc").val()
+						depDesc : $("#depDesc").val()
 					},
 					success : function(result) {
 						getAllrecord();
@@ -117,7 +119,7 @@
 						$("#tbl_DeptList").append(
 								'<tr class="tr"> <td>' + data[i].depId
 										+ '</td> <td>' + data[i].depName
-										+ '</td> <td>' + data[i].desc
+										+ '</td> <td>' + data[i].depDesc
 										+ '</td> <td><input type="button" class="btn btn-warning" onclick="editDepartment('
 										+ data[i].depId
 										+ ');"  value="Edit"></input>'
@@ -143,7 +145,7 @@
 						
 					 $("#depId").val(response.depId),
 					 $("#depName").val(response.depName), 
-					 $("#desc").val(response.desc)
+					 $("#depDesc").val(response.depDesc)
 					 
 					$('#saveDepartment').hide();
 					$('#updateDepartment').show();
@@ -163,7 +165,7 @@
 				data : {
 					depId : $("#depId").val(),
 					depName : $("#depName").val(),
-					desc : $("#desc").val()
+					depDesc : $("#depDesc").val()
 				},
 				success : function(result) {
 					
