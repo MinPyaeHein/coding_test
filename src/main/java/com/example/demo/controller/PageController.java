@@ -1,19 +1,19 @@
 package com.example.demo.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-
-import com.example.demo.entity.Department;
+import org.springframework.web.bind.annotation.ResponseBody;
 import com.example.demo.entity.Page;
-import com.example.demo.service.DepartmentService;
 import com.example.demo.service.PageService;
 @Controller
 public class PageController {
@@ -23,55 +23,46 @@ public class PageController {
 		super();
 		this.pageService = pageService;
 	}
-
-	
-	@GetMapping("/pages")
-	public String listPages(Model model) {
-		model.addAttribute("pages", pageService.getAllPages());
+   
+   	@GetMapping("/pageManagement")
+	public String pageManagement(Model model) {
+		
 		return "pages";
 	}
-	
-	@GetMapping("/pages/new")
-	public String createPageForm(Model model) {
-		Page page = new Page();
-		model.addAttribute("page", page);
-		return "create_page";
-		
+
+	@RequestMapping(value = "/getPageList", headers = { "Accept=application/json" })
+	public @ResponseBody List<Page> listPages() {
+		return pageService.getAllPages();
 	}
 	
-	@PostMapping("/pages")
-	public String savePage(@ModelAttribute("page") Page page) {
+	@PostMapping("/insertPage")
+	@ResponseBody
+	public String savePage(@ModelAttribute("insertPage") Page page) {
 		
 		page=pageService.savePage(page);
 		 
-		return "redirect:/pages";
-	}
-	
-	@GetMapping("/pages/edit/{id}")
-	public String editPageForm(@PathVariable Long id, Model model) {
-		model.addAttribute("staff", pageService.getPageById(id));
-		return "edit_department";
-	}
-
-	@PostMapping("/pages/{id}")
-	public String updatePage(@PathVariable Long id,
-			@ModelAttribute("page")Page page,
-			Model model) {
-		Page existingPage = pageService.getPageById(id);
-		existingPage.setPageId(id);
-		existingPage.setPageName(page.getPageName());
-		existingPage.setPageDesc(page.getPageDesc());
-		existingPage.setPageCode(page.getPageCode());
-		pageService.updatePage(existingPage);
-		return "redirect:/pages";		
+		return "saved";
 	}
 	
 
+	@GetMapping("/page/edit/{id}")
+	@ResponseBody
+	public Page editPageForm(@PathVariable Long id) {
+		return pageService.getPageById(id);
+	}
 	
-	@GetMapping("/pages/{id}")
-	public String deletePage(@PathVariable Long id) {
+
+	@PatchMapping("/updatePage")
+	@ResponseBody
+	public String updatePage(@ModelAttribute("updatePage")Page page) {
+		pageService.updatePage(page);
+		return "updated";		
+	}
+	
+	@DeleteMapping("/page/{id}")
+	@ResponseBody
+	public String deleteDepartment(@PathVariable Long id) {
 		pageService.deletePagetById(id);
-		return "redirect:/pages";
+		return "success";
 	}
-	
 }
