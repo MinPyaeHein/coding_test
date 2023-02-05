@@ -27,18 +27,19 @@ import lombok.ToString;
 @Entity
 @Table(name = "staff_page")
 public class StaffPage implements Serializable {
-	
+
 	private StaffPageId id;
-	
 	@EmbeddedId
 	@AttributeOverrides({ @AttributeOverride(name = "staffId", column = @Column(name = "staff_id", nullable = false)),
 			@AttributeOverride(name = "pageId", column = @Column(name = "page_id", nullable = false)) })
 	public StaffPageId getId() {
 		return this.id;
 	}
+	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "staff_id", nullable = false)
 	private Staff staff;
+	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "page_id", nullable = false)
 	private Page page;

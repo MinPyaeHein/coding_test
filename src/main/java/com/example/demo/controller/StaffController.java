@@ -47,8 +47,8 @@ public class StaffController {
 		staffRegForm.setEmail("minpyahein.ucsdawei@gmail.com");
 		staffRegForm.setGroupId("1");
 		List<String> idList=new ArrayList<>();
-		idList.add("1");
-		idList.add("2");
+		idList.add("5");
+		idList.add("6");
 		staffRegForm.setPages(idList);
 		staffRegForm.setDepartments(idList);
 		Staff s=staffService.saveStaff(staffRegForm);
@@ -56,25 +56,22 @@ public class StaffController {
 	}
 	
 	@GetMapping("/staffs/edit/{id}")
-	public String editStaffForm(@PathVariable Long id, Model model) {
+	public String editStaffForm(@PathVariable Long id,Model model) {
 		model.addAttribute("staff", staffService.getStaffById(id));
 		return "edit_staff";
 	}
 
 	@GetMapping("/staffUpdPath")
 	public String updateStaff(
-			@ModelAttribute("staff")StaffRegForm staffRegForm,
-			Model model) {
-		staffRegForm.setStaffId("1");
+			@ModelAttribute("staff")StaffRegForm staffRegForm,Model model) {
+		staffRegForm.setStaffId("7");
 		staffRegForm.setName("Min Min Upd");
 		staffRegForm.setPassword("234455");
 		staffRegForm.setEmail("minpyahein.ucsdawei@gmail.com");
 		staffRegForm.setGroupId("1");
 		List<String> idList=new ArrayList<>();
-		idList.add("1");
-		idList.add("2");
-		idList.add("3");
-		
+		idList.add("5");
+				
 		staffRegForm.setPages(idList);
 		staffRegForm.setDepartments(idList);
 		staffService.updateStaff(staffRegForm);

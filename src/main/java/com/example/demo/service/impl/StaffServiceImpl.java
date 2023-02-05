@@ -60,6 +60,7 @@ public class StaffServiceImpl implements StaffService{
 		Group g=groupService.getGroupById(Long.parseLong(staffRegForm.getGroupId()));
 		staff.setGroup(g);
 		staff=staffRepository.save(staff);
+		
 		for(String s : staffRegForm.getPages()) {
 			Page page=pageService.getPageById(Long.parseLong(s));
 			StaffPage staffPage=new StaffPage();
@@ -87,6 +88,8 @@ public class StaffServiceImpl implements StaffService{
 	public Staff getStaffById(Long id) {
 		return staffRepository.findById(id).get();
 	}
+	
+	
 	@Override
 	public Staff updateStaff(StaffRegForm staffRegForm) {
 	Staff staff=getStaffById(Long.parseLong(staffRegForm.getStaffId()));
@@ -99,7 +102,7 @@ public class StaffServiceImpl implements StaffService{
 		staff=staffRepository.save(staff);
 		
 		staffDepartmentService.deleteStaffDepartmentByStaffId(staff.getStaffId());
-		staffPageService.deleteStaffPageById(staff.getStaffId());
+		
 		
 		
 		for(String d: staffRegForm.getDepartments()) {
@@ -114,8 +117,10 @@ public class StaffServiceImpl implements StaffService{
 			staffDepartmentService.saveStaffDepartment(staffDepartment);
 		}
 		
+		staffPageService.deleteStaffPageByStaffId(staff.getStaffId());
+		
 		for(String s : staffRegForm.getPages()) {
-		//	Page page=pageService.getPageById(Long.parseLong(s));
+			Page page=pageService.getPageById(Long.parseLong(s));
 			StaffPage staffPage=new StaffPage();
 			StaffPageId staffPageId=new StaffPageId();
 			staffPageId.setPageId(Long.parseLong(s));

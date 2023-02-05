@@ -48,8 +48,7 @@ public class StaffPageServiceImpl implements StaffPageService{
 	@Override
 	@Transactional
 	public void deleteStaffPageByStaffId(Long id) {
-		
-		staffPageRepository.deleteStaffPageByStaffId(id);
+	staffPageRepository.deleteStaffPageByStaffId(id);
 	}
 	
 
