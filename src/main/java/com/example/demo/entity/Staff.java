@@ -13,10 +13,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -59,6 +59,12 @@ public class Staff implements Serializable {
 	@JoinColumn(name = "group_id", nullable = false)
 	private Group group;
 	
+	/*@OneToMany(fetch = FetchType.EAGER, mappedBy = "staff")
+	private Set<StaffDepartment> staffDepartments;*/
+	
+	/*
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "staff")
+	private Set<StaffPage> staffPages;*/
 	
 	
 }

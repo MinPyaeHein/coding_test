@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.demo.entity.Group;
 import com.example.demo.entity.Staff;
+import com.example.demo.entity.StaffPage;
 import com.example.demo.form.StaffRegForm;
 import com.example.demo.service.GroupService;
 import com.example.demo.service.StaffService;
@@ -26,7 +28,12 @@ public class StaffController {
 	
 	@GetMapping("/staffs")
 	public String listStaffs(Model model) {
-		model.addAttribute("staffs", staffService.getAllStaffs());
+		System.out.println("get staff page");
+		List<Staff> staffs=staffService.getAllStaffs();
+		System.out.println("get staff page"+staffs.size());
+		//Set<StaffPage> stPages=staffs.get(0).getStaffPages();
+		//System.out.print(stPages.size());
+		model.addAttribute("staffs",staffs );
 		return "staffs";
 	}
 	

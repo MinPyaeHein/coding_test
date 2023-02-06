@@ -95,8 +95,6 @@
 			
 			$('#addNewDepartment').show();
 			$('#departmentPanel').hide();
-
-
 			$('#saveDepartment').click(function() {
 				$.ajax({
 					type : "POST",

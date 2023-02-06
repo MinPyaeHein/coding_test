@@ -48,7 +48,13 @@ public class StaffDepartmentId implements java.io.Serializable {
 
 		return (this.getStaffId() == castOther.getStaffId()) && (this.getDepId() == castOther.getDepId());
 	}
+	public int hashCode() {
+		int result = 17;
 
+		result = 37 * result + Integer.parseInt(this.getStaffId()+"");
+		result = 37 * result + Integer.parseInt(this.getDepId()+"");
+		return result;
+	}
 	
 
 }

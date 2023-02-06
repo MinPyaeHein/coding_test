@@ -29,6 +29,7 @@ private GroupService groupService;
 	
 	@GetMapping("/groups")
 	public String listGroups(Model model) {
+		System.out.println(groupService.getAllGroups().size());
 		model.addAttribute("groups", groupService.getAllGroups());
 		return "groups";
 	}
