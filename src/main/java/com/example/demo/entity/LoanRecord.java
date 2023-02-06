@@ -57,7 +57,11 @@ public class LoanRecord implements Serializable {
 	
 	
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "staff_id",  nullable = false, insertable = false, updatable = false)
+	@JoinColumn(name = "staff_id",  nullable = false, updatable = false)
 	private Staff staff;
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "dep_id", updatable = false)
+	private Department department;
 	
 }

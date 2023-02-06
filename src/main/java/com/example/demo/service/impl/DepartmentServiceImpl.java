@@ -68,4 +68,10 @@ public class DepartmentServiceImpl implements DepartmentService {
 		return result;
 	}
 
+	@Override
+	public List<Department> getDepartmentByStaffId(Long id) {
+	
+		return departmentRepository.findDepartmentByStaffId(id);
+	}
+
 }

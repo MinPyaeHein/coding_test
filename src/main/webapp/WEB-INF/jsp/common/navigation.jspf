@@ -8,7 +8,7 @@
 			<li><a href="/">Home</a></li>
 			<li><a href="/">Loan Management</a></li>
 			<li><a href="/departmentManagement">Department Management</a></li>
-			<li><a href="/">Staff Management</a></li>
+			<li><a href="/staffManagement">Staff Management</a></li>
 			<li><a href="/pageManagement">Page Management</a></li>
 		</ul>
 		<ul class="nav navbar-nav">

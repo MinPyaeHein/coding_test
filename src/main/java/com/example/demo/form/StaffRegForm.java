@@ -1,23 +1,14 @@
 package com.example.demo.form;
-
-import java.util.List;
-
-import javax.persistence.Entity;
-
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
-
 public class StaffRegForm {
+	
 private String staffId;
 private String groupId;
 private String name;
 private String email;
 private String password;
-private List<String> pages;
-private List<String> departments;
+private String[] pages;
+private String[] departments;
+
 public String getStaffId() {
 	return staffId;
 }
@@ -42,22 +33,23 @@ public String getPassword() {
 public void setPassword(String password) {
 	this.password = password;
 }
-public List<String> getPages() {
-	return pages;
-}
-public void setPages(List<String> pages) {
-	this.pages = pages;
-}
-public List<String> getDepartments() {
-	return departments;
-}
+
 public String getGroupId() {
 	return groupId;
 }
 public void setGroupId(String groupId) {
 	this.groupId = groupId;
 }
-public void setDepartments(List<String> departments) {
+public String[] getPages() {
+	return pages;
+}
+public void setPages(String[] pages) {
+	this.pages = pages;
+}
+public String[] getDepartments() {
+	return departments;
+}
+public void setDepartments(String[] departments) {
 	this.departments = departments;
 }
 

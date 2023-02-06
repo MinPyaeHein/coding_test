@@ -42,7 +42,7 @@ public class LoanRecordController {
 	
 	@GetMapping("/loanRecordSavePath")
 	public String saveLoanRecord(@ModelAttribute("loanRecordForm") LoanRecordForm loanRecordForm) throws ParseException {
-	    loanRecordForm.setStaffId("1");
+	    loanRecordForm.setStaffId("10");
 	    loanRecordForm.setAddress("Dawei");
 	    loanRecordForm.setApplyDate("01/07/2022");
 	    loanRecordForm.setLoanType("Monthly");
@@ -62,7 +62,7 @@ public class LoanRecordController {
 	@GetMapping("/loanRecordUpdPath")
 	public String updateLoanRecord(
 		@ModelAttribute("loanRecordForm")LoanRecordForm loanRecordForm,Model model) throws ParseException {
-	    loanRecordForm.setStaffId("1");
+	    loanRecordForm.setStaffId("10");
 	    loanRecordForm.setAddress("Yango");
 	    loanRecordForm.setApplyDate("02/07/2022");
 	    loanRecordForm.setLoanType("Monthly");

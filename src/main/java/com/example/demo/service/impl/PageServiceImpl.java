@@ -47,6 +47,11 @@ public class PageServiceImpl implements PageService{
 	public void setPageRepository(PageRepository pageRepository) {
 		this.pageRepository = pageRepository;
 	}
+	@Override
+	public List<Page> getPagetByStaffId(Long id) {
+	    return this.pageRepository.findPageByStaffId(id);
+		
+	}
 	
 
 

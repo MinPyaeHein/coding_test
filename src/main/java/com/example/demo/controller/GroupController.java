@@ -1,5 +1,9 @@
 package com.example.demo.controller;
 
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,7 +14,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.example.demo.common.GenericService;
 import com.example.demo.entity.Department;
 import com.example.demo.entity.Group;
 import com.example.demo.entity.Page;
@@ -25,13 +31,15 @@ private GroupService groupService;
 		super();
 		this.groupService = groupService;
 	}
-
-	
-	@GetMapping("/groups")
+   @GetMapping("/groups")
 	public String listGroups(Model model) {
 		System.out.println(groupService.getAllGroups().size());
 		model.addAttribute("groups", groupService.getAllGroups());
-		return "groups";
+		return "groups";}
+   
+	@RequestMapping(value = "/getGroupList", headers = { "Accept=application/json" })
+	public @ResponseBody List<Group> getGroupList() {
+		return groupService.getAllGroups();
 	}
 	
 	@GetMapping("/groups/new")

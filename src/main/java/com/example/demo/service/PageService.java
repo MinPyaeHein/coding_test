@@ -14,5 +14,7 @@ public interface PageService {
 	
 	void deletePagetById(Long id);
 	
+	List<Page> getPagetByStaffId(Long id);
+	
 	
 }

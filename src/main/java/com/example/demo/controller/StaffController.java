@@ -1,29 +1,39 @@
 package com.example.demo.controller;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.example.demo.entity.Group;
+import com.example.demo.entity.Department;
+import com.example.demo.entity.Page;
 import com.example.demo.entity.Staff;
 import com.example.demo.entity.StaffPage;
 import com.example.demo.form.StaffRegForm;
-import com.example.demo.service.GroupService;
+import com.example.demo.service.DepartmentService;
+import com.example.demo.service.PageService;
 import com.example.demo.service.StaffService;
 @Controller
 public class StaffController {
 	private StaffService staffService;
+	private PageService pageService;
+	private DepartmentService departmentService;
 	
-	public StaffController(StaffService staffService) {
+	public StaffController(StaffService staffService,PageService pageService,DepartmentService departmentService) {
 		super();
 		this.staffService = staffService;
+		this.pageService=pageService;
+		this.departmentService=departmentService;
 	}
 	
 	@GetMapping("/staffs")
@@ -31,35 +41,44 @@ public class StaffController {
 		System.out.println("get staff page");
 		List<Staff> staffs=staffService.getAllStaffs();
 		System.out.println("get staff page"+staffs.size());
-		//Set<StaffPage> stPages=staffs.get(0).getStaffPages();
-		//System.out.print(stPages.size());
+	   //get AllPages by staff id
+		List<Page> pages=pageService.getPagetByStaffId(Long.parseLong("7"));
+		System.out.println(pages.size());
+		//get all Department by staff id
+		List<Department> departments=departmentService.getDepartmentByStaffId(Long.parseLong("7"));
+		System.out.println(departments.size());
 		model.addAttribute("staffs",staffs );
 		return "staffs";
 	}
 	
-	@GetMapping("/staffs/new")
-	public String createStaffForm(Model model) {
+	@GetMapping("/deleteStaffPath")
+	public String deleteStaff(Model model) {
+		System.out.println("Delete Staff");
+		staffService.deleteStaffById(Long.parseLong("7"));
 		
-
-		Staff staff = new Staff();
-		model.addAttribute("staff", staff);
-		return "create_staff";
 		
+		return "staffs";
 	}
 	
-	@GetMapping("/staffSavePath")
-	public String saveStaff(@ModelAttribute("staff") StaffRegForm staffRegForm) {
-		staffRegForm.setName("Min Min");
-		staffRegForm.setPassword("234455");
-		staffRegForm.setEmail("minpyahein.ucsdawei@gmail.com");
-		staffRegForm.setGroupId("1");
-		List<String> idList=new ArrayList<>();
-		idList.add("5");
-		idList.add("6");
-		staffRegForm.setPages(idList);
-		staffRegForm.setDepartments(idList);
-		Staff s=staffService.saveStaff(staffRegForm);
-		return "redirect:/staffs";
+	 @RequestMapping(value = "/staffManagement", method = RequestMethod.GET)
+	  public String showWelcomePage() {
+	        
+	        return "staff";
+	  }
+	
+	@RequestMapping(value = "/getStaffList", headers = { "Accept=application/json" })
+	public @ResponseBody List<Staff> getStaffList() {
+		
+		return staffService.getAllStaffs();
+
+	}
+	
+
+	@PostMapping("/insertStaff")
+	@ResponseBody
+	public String saveStaff(@ModelAttribute("insertStaff") StaffRegForm staffRegForm) {
+		staffService.saveStaff(staffRegForm);
+		return "saved";
 	}
 	
 	@GetMapping("/staffs/edit/{id}")
@@ -68,29 +87,30 @@ public class StaffController {
 		return "edit_staff";
 	}
 
-	@GetMapping("/staffUpdPath")
+	@GetMapping("/updateStaff")
+	@ResponseBody
 	public String updateStaff(
-			@ModelAttribute("staff")StaffRegForm staffRegForm,Model model) {
-		staffRegForm.setStaffId("7");
-		staffRegForm.setName("Min Min Upd");
-		staffRegForm.setPassword("234455");
-		staffRegForm.setEmail("minpyahein.ucsdawei@gmail.com");
-		staffRegForm.setGroupId("1");
-		List<String> idList=new ArrayList<>();
-		idList.add("5");
-				
-		staffRegForm.setPages(idList);
-		staffRegForm.setDepartments(idList);
+			@ModelAttribute("updateStaff")StaffRegForm staffRegForm,Model model) {
+		
 		staffService.updateStaff(staffRegForm);
-		return "redirect:/staffs";		
+		return "updated";		
 	}
-	
 
 	
-	@GetMapping("/staffs/{id}")
+	@GetMapping("/staff/edit/{id}")
+	@ResponseBody
+	public Staff editStaffForm(@PathVariable Long id) {
+		return staffService.getStaffById(id);
+		 
+	}
+
+
+	
+	@DeleteMapping("/staff/{id}")
+	@ResponseBody
 	public String deleteStaff(@PathVariable Long id) {
 		staffService.deleteStaffById(id);
-		return "redirect:/staffs";
+		return "deleted";
 	}
 	
 }

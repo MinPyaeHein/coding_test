@@ -30,6 +30,7 @@ CREATE TABLE loan_record
 	create_at date,
 	update_at date,
 	staff_id int NOT NULL,
+	dep_id int NOT NULL,
 	PRIMARY KEY (loan_id)
 ) WITHOUT OIDS;
 
@@ -39,6 +40,7 @@ CREATE TABLE page
 	page_id SERIAL NOT NULL UNIQUE,
 	page_name varchar(60) NOT NULL,
 	page_code varchar(40),
+	page_desc varchar(40),
 	PRIMARY KEY (page_id)
 ) WITHOUT OIDS;
 
@@ -102,6 +104,13 @@ ALTER TABLE staff_page
 ALTER TABLE loan_record
 	ADD FOREIGN KEY (staff_id)
 	REFERENCES Staff (staff_id)
+	ON UPDATE RESTRICT
+	ON DELETE RESTRICT
+;
+
+ALTER TABLE loan_record
+	ADD FOREIGN KEY (dep_id)
+	REFERENCES Department (dep_id)
 	ON UPDATE RESTRICT
 	ON DELETE RESTRICT
 ;

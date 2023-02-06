@@ -3,7 +3,6 @@ package com.example.demo.service.impl;
 
 import java.util.Date;
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.entity.Department;
@@ -62,7 +61,6 @@ public class StaffServiceImpl implements StaffService{
 		staff=staffRepository.save(staff);
 		
 		for(String s : staffRegForm.getPages()) {
-			Page page=pageService.getPageById(Long.parseLong(s));
 			StaffPage staffPage=new StaffPage();
 			StaffPageId staffPageId=new StaffPageId();
 			staffPageId.setPageId(Long.parseLong(s));
@@ -104,9 +102,9 @@ public class StaffServiceImpl implements StaffService{
 		staffDepartmentService.deleteStaffDepartmentByStaffId(staff.getStaffId());
 		
 		
-		
 		for(String d: staffRegForm.getDepartments()) {
 			System.out.println(d);
+
 			Department department =departmentServic.getDepartmentById(Long.parseLong(d));
 			StaffDepartment staffDepartment=new StaffDepartment();
 			StaffDepartmentId staffDepartmentId=new StaffDepartmentId();
@@ -128,16 +126,17 @@ public class StaffServiceImpl implements StaffService{
 			staffPage.setId(staffPageId);
 			staffPageService.saveStaffPage(staffPage);
 		}
-		
-		
-	
 		return staff;
 	}
 	@Override
 	public void deleteStaffById(Long id) {
+		staffDepartmentService.deleteStaffDepartmentByStaffId(id);
+		staffPageService.deleteStaffPageByStaffId(id);
 		staffRepository.deleteById(id);	
 		
 	}
+	
+	
 
 
 	

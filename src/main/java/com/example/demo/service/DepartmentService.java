@@ -25,5 +25,7 @@ public interface DepartmentService {
 
 	GenericService<List<Department>> searchByCriteria(HttpServletRequest request);
 	
+	List<Department> getDepartmentByStaffId(Long id);
+	
 	
 }
