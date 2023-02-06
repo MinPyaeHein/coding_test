@@ -11,14 +11,9 @@ import com.example.demo.service.PageService;
 
 @Service
 public class PageServiceImpl implements PageService{
-	
+	@Autowired
 	private PageRepository pageRepository;
 	
-	
-	public PageServiceImpl(PageRepository pageRepository) {
-		super();
-		this.pageRepository = pageRepository;
-	}
 	@Override
 	public List<Page> getAllPages() {
 		// TODO Auto-generated method stub

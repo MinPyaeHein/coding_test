@@ -81,6 +81,22 @@ public class LoanRecordServiceImpl implements LoanRecordService{
 		loanRecordRepository.deleteById(id);	
 		
 	}
+	@Override
+	public List<LoanRecord> getAllLoanRecordsByStaffId(Long id) {
+		// TODO Auto-generated method stub
+		return loanRecordRepository.findLoanRecordByStaffId(id);
+	}
+	@Override
+	public List<LoanRecord> getAllLoanRecordsByDepId(Long id) {
+		// TODO Auto-generated method stub
+		return loanRecordRepository.findLoanRecordByDepId(id);
+	}
+	@Override
+	public List<LoanRecord> getAllLoanRecordsByAppDate(Date date) {
+		// TODO Auto-generated method stub
+		return loanRecordRepository.findLoanRecordByApplyDate(date);
+	}
+	
 	
 
 

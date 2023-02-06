@@ -3,6 +3,7 @@ package com.example.demo.entity;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -17,6 +18,11 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import com.example.demo.service.PageService;
+import com.example.demo.service.impl.PageServiceImpl;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -58,13 +64,6 @@ public class Staff implements Serializable {
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "group_id", nullable = false)
 	private Group group;
-	
-	/*@OneToMany(fetch = FetchType.EAGER, mappedBy = "staff")
-	private Set<StaffDepartment> staffDepartments;*/
-	
-	/*
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "staff")
-	private Set<StaffPage> staffPages;*/
 	
 	
 }

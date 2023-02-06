@@ -1,4 +1,11 @@
 package com.example.demo.form;
+
+import java.util.List;
+
+import com.example.demo.entity.Department;
+import com.example.demo.entity.Group;
+import com.example.demo.entity.Page;
+
 public class StaffRegForm {
 	
 private String staffId;
@@ -6,6 +13,10 @@ private String groupId;
 private String name;
 private String email;
 private String password;
+private Group group;
+private List<Page> listPages;
+private List<Department> listDepartments;
+
 private String[] pages;
 private String[] departments;
 
@@ -51,6 +62,24 @@ public String[] getDepartments() {
 }
 public void setDepartments(String[] departments) {
 	this.departments = departments;
+}
+public Group getGroup() {
+	return group;
+}
+public List<Page> getListPages() {
+	return listPages;
+}
+public void setListPages(List<Page> listPages) {
+	this.listPages = listPages;
+}
+public List<Department> getListDepartments() {
+	return listDepartments;
+}
+public void setListDepartments(List<Department> listDepartments) {
+	this.listDepartments = listDepartments;
+}
+public void setGroup(Group group) {
+	this.group = group;
 }
 
 }

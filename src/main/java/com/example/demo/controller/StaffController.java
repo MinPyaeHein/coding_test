@@ -1,4 +1,5 @@
 package com.example.demo.controller;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -40,13 +41,27 @@ public class StaffController {
 	public String listStaffs(Model model) {
 		System.out.println("get staff page");
 		List<Staff> staffs=staffService.getAllStaffs();
-		System.out.println("get staff page"+staffs.size());
+	   System.out.println("get staff page"+staffs.size());
 	   //get AllPages by staff id
-		List<Page> pages=pageService.getPagetByStaffId(Long.parseLong("7"));
-		System.out.println(pages.size());
+		
+		//System.out.println(pages.size());
 		//get all Department by staff id
 		List<Department> departments=departmentService.getDepartmentByStaffId(Long.parseLong("7"));
-		System.out.println(departments.size());
+	//	System.out.println(departments.size());
+		List<StaffRegForm> staffRegForms=new ArrayList<>();
+		for (Staff s:staffs) {
+			StaffRegForm staffRegForm=new StaffRegForm();
+			staffRegForm.setStaffId(s.getStaffId()+"");
+			staffRegForm.setEmail(s.getEmail());
+			staffRegForm.setPassword(s.getPassword());
+			staffRegForm.setGroup(s.getGroup());
+			List<Page> pages=pageService.getPagetByStaffId(Long.parseLong(s.getStaffId()+""));
+			staffRegForm.setListPages(pages);
+			staffRegForm.setListDepartments(departments);
+		}
+		
+		
+		
 		model.addAttribute("staffs",staffs );
 		return "staffs";
 	}

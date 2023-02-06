@@ -1,6 +1,8 @@
 package com.example.demo.controller;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +28,18 @@ public class LoanRecordController {
 	}
 	
 	@GetMapping("/loanRecords")
-	public String listLoanRecords(Model model) {
+	public String listLoanRecords(Model model) throws ParseException {
+		List<LoanRecord> loanRecords=loanRecordService.getAllLoanRecordsByDepId(Long.parseLong("5"));
+	    System.out.println(loanRecords.size());
+	    
+		loanRecords=loanRecordService.getAllLoanRecordsByStaffId(Long.parseLong("10"));
+		System.out.println(loanRecords.size());
 		
+		Date appDate=new SimpleDateFormat("dd/MM/yyyy").parse("01/07/2022"); 
+		System.out.println(loanRecords.size());
+		
+		
+		loanRecords=loanRecordService.getAllLoanRecordsByAppDate(appDate);
 		model.addAttribute("loanRecords", loanRecordService.getAllLoanRecords());
 		return "loanRecords";
 	}
