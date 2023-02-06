@@ -61,7 +61,6 @@ public class StaffServiceImpl implements StaffService{
 		staff.setGroup(g);
 		staff=staffRepository.save(staff);
 		for(String s : staffRegForm.getPages()) {
-			Page page=pageService.getPageById(Long.parseLong(s));
 			StaffPage staffPage=new StaffPage();
 			StaffPageId staffPageId=new StaffPageId();
 			staffPageId.setPageId(Long.parseLong(s));
@@ -110,7 +109,7 @@ public class StaffServiceImpl implements StaffService{
 			staffPageService.saveStaffPage(staffPage);
 		}
 		
-		for(String d: staffRegForm.getDepartments()) {
+		for(String d : staffRegForm.getDepartments()) {
 			Department department =departmentServic.getDepartmentById(Long.parseLong(d));
 			StaffDepartment staffDepartment=new StaffDepartment();
 			StaffDepartmentId staffDepartmentId=new StaffDepartmentId();

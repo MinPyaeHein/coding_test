@@ -3,7 +3,9 @@ package com.example.demo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -46,14 +48,14 @@ public class DepartmentController {
 	
 	
 	  @RequestMapping(value = "/departmentManagement", method = RequestMethod.GET)
-	  public String showWelcomePage(ModelMap model) {
+	  public String showWelcomePage() {
 	        
 	        return "departments";
 	  }
-	
+
 
 	@RequestMapping(value = "/getDeptlList", headers = { "Accept=application/json" })
-	public @ResponseBody List<Department> listDepartments(HttpServletRequest request, HttpServletResponse response) {
+	public @ResponseBody List<Department> listDepartments(HttpServletRequest request) {
 		
 		GenericService<List<Department>> result = this.departmentService.searchByCriteria(request);
 	

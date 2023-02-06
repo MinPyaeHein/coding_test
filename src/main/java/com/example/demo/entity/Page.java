@@ -36,6 +36,4 @@ public class Page implements Serializable {
 	
 	@Column(name = "page_code")
 	private String pageCode;
-
-
 }
