@@ -35,6 +35,7 @@ public class StaffController {
 		return staffService.getAllStaffs();
 	}
 	
+
 	@PostMapping("/insertStaff")
 	@ResponseBody
 	public String saveStaff(@ModelAttribute("insertStaff") StaffRegForm staffRegForm) {
@@ -42,11 +43,17 @@ public class StaffController {
 		return "saved";
 	}
 	
-	
-	@PatchMapping("/updateStaff")
-	public String updateStaff(@PathVariable Long id,
-			@ModelAttribute("updateStaff")StaffRegForm staffRegForm,
-			Model model) {
+	@GetMapping("/staffs/edit/{id}")
+	public String editStaffForm(@PathVariable Long id,Model model) {
+		model.addAttribute("staff", staffService.getStaffById(id));
+		return "edit_staff";
+	}
+
+	@GetMapping("/updateStaff")
+	@ResponseBody
+	public String updateStaff(
+			@ModelAttribute("updateStaff")StaffRegForm staffRegForm,Model model) {
+		
 		staffService.updateStaff(staffRegForm);
 		return "updated";		
 	}

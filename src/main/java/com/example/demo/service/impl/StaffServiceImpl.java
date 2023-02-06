@@ -3,7 +3,6 @@ package com.example.demo.service.impl;
 
 import java.util.Date;
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.entity.Department;
@@ -60,6 +59,7 @@ public class StaffServiceImpl implements StaffService{
 		Group g=groupService.getGroupById(Long.parseLong(staffRegForm.getGroupId()));
 		staff.setGroup(g);
 		staff=staffRepository.save(staff);
+		
 		for(String s : staffRegForm.getPages()) {
 			StaffPage staffPage=new StaffPage();
 			StaffPageId staffPageId=new StaffPageId();
@@ -86,10 +86,12 @@ public class StaffServiceImpl implements StaffService{
 	public Staff getStaffById(Long id) {
 		return staffRepository.findById(id).get();
 	}
+	
+	
 	@Override
 	public Staff updateStaff(StaffRegForm staffRegForm) {
 	Staff staff=getStaffById(Long.parseLong(staffRegForm.getStaffId()));
-		
+		System.out.println("staff.getName()"+staff.getName()+"="+staff.getStaffId());
 		staff.setName(staffRegForm.getName());
 		staff.setEmail(staffRegForm.getEmail());
 		staff.setPassword(staffRegForm.getPassword());
@@ -98,6 +100,22 @@ public class StaffServiceImpl implements StaffService{
 		staff=staffRepository.save(staff);
 		
 		staffDepartmentService.deleteStaffDepartmentByStaffId(staff.getStaffId());
+		
+		
+		for(String d: staffRegForm.getDepartments()) {
+			System.out.println(d);
+
+			Department department =departmentServic.getDepartmentById(Long.parseLong(d));
+			StaffDepartment staffDepartment=new StaffDepartment();
+			StaffDepartmentId staffDepartmentId=new StaffDepartmentId();
+			staffDepartmentId.setDepId(department.getDepId());
+			staffDepartmentId.setStaffId(staff.getStaffId());
+			staffDepartment.setDepartment(department);
+			staffDepartment.setId(staffDepartmentId);
+			staffDepartmentService.saveStaffDepartment(staffDepartment);
+		}
+		
+		staffPageService.deleteStaffPageByStaffId(staff.getStaffId());
 		
 		for(String s : staffRegForm.getPages()) {
 			Page page=pageService.getPageById(Long.parseLong(s));
@@ -109,24 +127,18 @@ public class StaffServiceImpl implements StaffService{
 			staffPageService.saveStaffPage(staffPage);
 		}
 		
-		for(String d : staffRegForm.getDepartments()) {
-			Department department =departmentServic.getDepartmentById(Long.parseLong(d));
-			StaffDepartment staffDepartment=new StaffDepartment();
-			StaffDepartmentId staffDepartmentId=new StaffDepartmentId();
-			staffDepartmentId.setDepId(department.getDepId());
-			staffDepartmentId.setStaffId(staff.getStaffId());
-			staffDepartment.setDepartment(department);
-			staffDepartment.setId(staffDepartmentId);
-			staffDepartmentService.saveStaffDepartment(staffDepartment);
-		}
+		
 	
-		return staffRepository.save(staff);
+		return staff;
 	}
 	@Override
 	public void deleteStaffById(Long id) {
 		staffRepository.deleteById(id);	
 		
 	}
+
+
+	
 	
 
 

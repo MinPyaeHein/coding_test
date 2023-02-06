@@ -29,10 +29,11 @@ import lombok.ToString;
 @Entity
 @Table(name = "staff_department")
 public class StaffDepartment implements Serializable {
+	
 	private StaffDepartmentId id;
 	@EmbeddedId
-	@AttributeOverrides({ @AttributeOverride(name = "bookId", column = @Column(name = "book_id", nullable = false)),
-		@AttributeOverride(name = "authorId", column = @Column(name = "author_id", nullable = false)) })
+	@AttributeOverrides({ @AttributeOverride(name = "staffId", column = @Column(name = "staff_id", nullable = false)),
+		@AttributeOverride(name = "depId", column = @Column(name = "dep_id", nullable = false)) })
 	public StaffDepartmentId getId() {
 		return this.id;
 	}

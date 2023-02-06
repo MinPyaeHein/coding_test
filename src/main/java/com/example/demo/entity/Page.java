@@ -26,6 +26,7 @@ import lombok.ToString;
 public class Page implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "page_id", unique = true, nullable = false)
 	private Long pageId;
 	
 	@Column(name = "page_name")

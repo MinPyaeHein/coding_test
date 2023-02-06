@@ -9,11 +9,6 @@ DROP TABLE IF EXISTS page;
 DROP TABLE IF EXISTS Staff;
 DROP TABLE IF EXISTS staff_group;
 
-
-
-
-/* Create Tables */
-
 CREATE TABLE Department
 (
 	dep_id SERIAL NOT NULL UNIQUE,
