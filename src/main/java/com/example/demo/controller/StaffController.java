@@ -37,31 +37,49 @@ public class StaffController {
 		this.departmentService=departmentService;
 	}
 	
-	@GetMapping("/staffs")
-	public String listStaffs(Model model) {
-		System.out.println("get staff page");
-		List<Staff> staffs=staffService.getAllStaffs();
-	   System.out.println("get staff page"+staffs.size());
-	   //get AllPages by staff id
+	private StaffRegForm getStaffRegFrom(long id)
+	{
+		Staff s = this.staffService.getStaffById(id);
+		StaffRegForm staffRegForm=new StaffRegForm();
+		staffRegForm.setStaffId(s.getStaffId()+"");
+		staffRegForm.setEmail(s.getEmail());
+		staffRegForm.setName(s.getName());
+		staffRegForm.setPassword(s.getPassword());
+		staffRegForm.setGroup(s.getGroup());
+		List<Page> pages=pageService.getPagetByStaffId(Long.parseLong(s.getStaffId()+""));
+		List<Department> departments=departmentService.getDepartmentByStaffId(Long.parseLong(s.getStaffId()+""));
+		staffRegForm.setListPages(pages);
+		staffRegForm.setListDepartments(departments);
+		staffRegForm.setCreateAt(s.getCreateAt());
+		staffRegForm.setUpdateAt(s.getUpdateAt());
 		
-		//System.out.println(pages.size());
-		//get all Department by staff id
-		List<Department> departments=departmentService.getDepartmentByStaffId(Long.parseLong("7"));
-	//	System.out.println(departments.size());
+		return staffRegForm;
+	
+	}
+	
+	
+	private List<StaffRegForm>  getListStaffs() {
+		
+		List<Staff> staffs=staffService.getAllStaffs();
+	 
 		List<StaffRegForm> staffRegForms=new ArrayList<>();
 		for (Staff s:staffs) {
 			StaffRegForm staffRegForm=new StaffRegForm();
 			staffRegForm.setStaffId(s.getStaffId()+"");
 			staffRegForm.setEmail(s.getEmail());
+			staffRegForm.setName(s.getName());
 			staffRegForm.setPassword(s.getPassword());
 			staffRegForm.setGroup(s.getGroup());
 			List<Page> pages=pageService.getPagetByStaffId(Long.parseLong(s.getStaffId()+""));
+			List<Department> departments=departmentService.getDepartmentByStaffId(Long.parseLong(s.getStaffId()+""));
 			staffRegForm.setListPages(pages);
 			staffRegForm.setListDepartments(departments);
+			staffRegForm.setCreateAt(s.getCreateAt());
+			staffRegForm.setUpdateAt(s.getUpdateAt());
 			staffRegForms.add(staffRegForm);
 		}
-		model.addAttribute("staffs",staffs );
-		return "staffs";
+		
+		return staffRegForms;
 	}
 	
 	@GetMapping("/deleteStaffPath")
@@ -80,9 +98,9 @@ public class StaffController {
 	  }
 	
 	@RequestMapping(value = "/getStaffList", headers = { "Accept=application/json" })
-	public @ResponseBody List<Staff> getStaffList() {
+	public @ResponseBody List<StaffRegForm> getStaffList() {
 		
-		return staffService.getAllStaffs();
+		return this.getListStaffs();
 
 	}
 	
@@ -90,20 +108,14 @@ public class StaffController {
 	@PostMapping("/insertStaff")
 	@ResponseBody
 	public String saveStaff(@ModelAttribute("insertStaff") StaffRegForm staffRegForm) {
+	
 		staffService.saveStaff(staffRegForm);
 		return "saved";
-	}
-	
-	@GetMapping("/staffs/edit/{id}")
-	public String editStaffForm(@PathVariable Long id,Model model) {
-		model.addAttribute("staff", staffService.getStaffById(id));
-		return "edit_staff";
 	}
 
 	@GetMapping("/updateStaff")
 	@ResponseBody
-	public String updateStaff(
-			@ModelAttribute("updateStaff")StaffRegForm staffRegForm,Model model) {
+	public String updateStaff(@ModelAttribute("updateStaff")StaffRegForm staffRegForm) {
 		
 		staffService.updateStaff(staffRegForm);
 		return "updated";		
@@ -112,8 +124,8 @@ public class StaffController {
 	
 	@GetMapping("/staff/edit/{id}")
 	@ResponseBody
-	public Staff editStaffForm(@PathVariable Long id) {
-		return staffService.getStaffById(id);
+	public StaffRegForm editStaffForm(@PathVariable Long id) {
+		return this.getStaffRegFrom(id);
 		 
 	}
 

@@ -10,6 +10,8 @@
 			<li><a href="/departmentManagement">Department Management</a></li>
 			<li><a href="/staffManagement">Staff Management</a></li>
 			<li><a href="/pageManagement">Page Management</a></li>
+			<li><a href="/groupManagement">Group Management</a></li>
+			
 		</ul>
 		<ul class="nav navbar-nav">
 			<li><a href="/logout">Logout</a></li>

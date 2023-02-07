@@ -49,7 +49,6 @@ public class LoanRecordController {
 		LoanRecord loanRecord = new LoanRecord();
 		model.addAttribute("loanRecord", loanRecord);
 		return "create_loanRecord";
-		
 	}
 	
 	@GetMapping("/loanRecordSavePath")
