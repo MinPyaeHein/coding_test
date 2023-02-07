@@ -44,9 +44,7 @@ public class DepartmentController {
 
 	@Autowired
 	private DepartmentService departmentService;
-	private Logger logger = LoggerFactory.getLogger(DepartmentController.class);
-	
-	
+
 	  @RequestMapping(value = "/departmentManagement", method = RequestMethod.GET)
 	  public String showWelcomePage() {
 	        
@@ -73,7 +71,7 @@ public class DepartmentController {
 		
 	@GetMapping("/departments/edit/{id}")
 	@ResponseBody
-	public Department editStudentForm(@PathVariable Long id) {
+	public Department editGroup(@PathVariable Long id) {
 		return departmentService.getDepartmentById(id);
 	}
 
@@ -94,13 +92,5 @@ public class DepartmentController {
 		return "success";
 	}
 	
-
-	protected Integer getSecho(HttpServletRequest request) {
-		String sEchoTxt = request.getParameter("sEcho");
-		Integer sEcho = (!Util.isNullOrEmpty(sEchoTxt)) ? Integer.valueOf(sEchoTxt) : 0;
-
-		return sEcho;
-	}
-
 	
 }

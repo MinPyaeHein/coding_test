@@ -59,7 +59,6 @@
 						
 						<div class="row">
 							<div class="col-lg-10">
-							
 								<div class="form-group" id="groupDiv">
 									<select id="groupId" class="form-control chosen-select" name="groupId">
 									</select>
@@ -167,7 +166,6 @@
 			$('#idCreatedAt').hide();
 			$('#idfield').hide();
 			$('#staffForm')[0].reset();
-
 			$('#saveStaff').click(function() {
 				
 				$.ajax({
@@ -258,13 +256,13 @@
 				dataType : 'json',
 				success : function(response) {
 					
-					 $("#staffId").val(response.staffId),
-					 $("#name").val(response.name), 
-					 $("#email").val(response.email), 
-					 $("#password").val(response.password), 
-					 $("#updateAt").val(response.updateAt), 
-					 $("#createAt").val(response.createAt),
-					 $("#accountStatus").val(response.accountStatus)
+					 $("#staffId").val(response.staffId);
+					 $("#name").val(response.name);
+					 $("#email").val(response.email);
+					 $("#password").val(response.password); 
+					 $("#updateAt").val(response.updateAt);
+					 $("#createAt").val(response.createAt);
+					 $("#accountStatus").val(response.accountStatus);
 					 
 				
 					const div = document.getElementById("panelTitle");
@@ -364,13 +362,15 @@
 				type : "GET",
 				url : "getGroupList",
 				success: function(data) {
-				
-					var select =  document.getElementById("groupId")
-				   
+					$("#groupId").html("");
+					var select =  document.getElementById("groupId");
+
 					 $("#groupDiv").html("");
+					 
 					  for (i = 0; i < data.length; i++) {
 						
 						  var option = document.createElement("option");
+						 
 					        option.value = data[i].groupId;
 					        option.text = data[i].groupName.charAt(0).toUpperCase() + data[i].groupName.slice(1);
 					        if(data[i].groupId == params)
@@ -384,7 +384,7 @@
 					  	var label = document.createElement("label");
 					    label.innerHTML = "Choose your group: "
 					    label.htmlFor = "groupId";
-					    document.getElementById("groupDiv").appendChild(label).appendChild(select);
+					    document.getElementById('groupDiv').appendChild(label).appendChild(select);
 					},
 				error : function(err) {
 					alert("error is" + err)

@@ -8,8 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,57 +33,43 @@ private GroupService groupService;
 		super();
 		this.groupService = groupService;
 	}
-   @GetMapping("/groups")
-	public String listGroups(Model model) {
-		System.out.println(groupService.getAllGroups().size());
-		model.addAttribute("groups", groupService.getAllGroups());
-		return "groups";}
    
-	@RequestMapping(value = "/getGroupList", headers = { "Accept=application/json" })
-	public @ResponseBody List<Group> getGroupList() {
-		return groupService.getAllGroups();
+   @RequestMapping(value = "/groupManagement", method = RequestMethod.GET)
+	  public String groupManagement() {
+	        
+	        return "groups";
+	  }
+
+   @RequestMapping(value = "/getGroupList", headers = { "Accept=application/json" })
+	public @ResponseBody List<Group> listGroups() {
+		return  groupService.getAllGroups();
+   }
+
+   @PostMapping("/insertGroup")
+	@ResponseBody
+	public String saveGroup(@ModelAttribute("insertGroup") Group group) {
+		 group=groupService.saveGroup(group);
+		 return "saved";
 	}
-	
-	@GetMapping("/groups/new")
-	public String createGroupForm(Model model) {
-		Group group = new Group();
-		model.addAttribute("group", group);
-		return "create_group";
 		
-	}
-	
-	@PostMapping("/groups")
-	public String saveGroup(@ModelAttribute("page") Group group) {
-		
-		group=groupService.saveGroup(group);
-		 
-		return "redirect:/group";
-	}
-	
-	@GetMapping("/groups/edit/{id}")
-	public String editGroupForm(@PathVariable Long id, Model model) {
-		model.addAttribute("staff", groupService.getGroupById(id));
-		return "edit_department";
+	@GetMapping("/group/edit/{id}")
+	@ResponseBody
+	public Group editGroup(@PathVariable Long id) {
+		return groupService.getGroupById(id);
 	}
 
-	@PostMapping("/groups/{id}")
-	public String updateGroup(@PathVariable Long id,
-			@ModelAttribute("group")Group group,
-			Model model) {
-		Group existingGroup = groupService.getGroupById(id);
-		existingGroup.setGroupId(id);
-		existingGroup.setGroupName(group.getGroupName());
-		existingGroup.setGroupCode(group.getGroupCode());
-	    groupService.updateGroup(existingGroup);
-		return "redirect:/groups";		
-	}
-	
 
-	
-	@GetMapping("/groups/{id}")
+	@PatchMapping("/updateGroup")
+	@ResponseBody
+	public String updateGroup(@ModelAttribute("updateGroup")Group group) {
+		groupService.updateGroup(group);
+		return "success";	
+	}
+
+	@DeleteMapping("/group/{id}")
 	public String deleteGroup(@PathVariable Long id) {
 		groupService.deleteGroupById(id);
-		return "redirect:/groups";
+		return "success";
 	}
 	
 }

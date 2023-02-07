@@ -118,7 +118,7 @@ public class StaffServiceImpl implements StaffService{
 		staffPageService.deleteStaffPageByStaffId(staff.getStaffId());
 		
 		for(String s : staffRegForm.getPages()) {
-			Page page=pageService.getPageById(Long.parseLong(s));
+			
 			StaffPage staffPage=new StaffPage();
 			StaffPageId staffPageId=new StaffPageId();
 			staffPageId.setPageId(Long.parseLong(s));
