@@ -96,6 +96,7 @@ public class StaffServiceImpl implements StaffService{
 		staff.setEmail(staffRegForm.getEmail());
 		staff.setPassword(staffRegForm.getPassword());
 		staff.setCreateAt(staff.getCreateAt());
+		staff.setGroup(groupService.getGroupById(Long.parseLong(staffRegForm.getGroupId())));
 		staff.setUpdateAt(new Date());
 		staff=staffRepository.save(staff);
 		

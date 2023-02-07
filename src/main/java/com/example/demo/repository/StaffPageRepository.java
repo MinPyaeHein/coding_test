@@ -8,7 +8,7 @@ import com.example.demo.entity.StaffPage;
 @Repository
 public interface StaffPageRepository extends JpaRepository<StaffPage, Long>{
 	    @Modifying
-		@Query(value="delete from staff_page",nativeQuery = true)
+		@Query(value="delete from staff_page p where p.staff_id=:staffId",nativeQuery = true)
 		void deleteStaffPageByStaffId(@Param("staffId")Long staffId);
 	    
 	   
