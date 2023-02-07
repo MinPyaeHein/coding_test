@@ -30,6 +30,7 @@ private String accountStatus;
 private Date createAt;
 private Date updateAt;
 private List<Page> listPages;
+private List<Department> listDepartments;
 private List<String> pages = new ArrayList<String>();;
 private List<String> departments = new ArrayList<String>();
 
@@ -113,7 +114,7 @@ public void setPages(List<String> pages) {
 public void setDepartments(List<String> departments) {
 	this.departments = departments;
 }
-private List<Department> listDepartments;
+
 
 public List<Department> getListDepartments() {
 	return listDepartments;
@@ -125,6 +126,13 @@ public void setListDepartments(List<Department> listDepartments) {
 	{
 		this.departments.add(d.getDepId()+"");
 	}
+}
+@Override
+public String toString() {
+	return "StaffRegForm [staffId=" + staffId + ", groupId=" + groupId + ", name=" + name + ", email=" + email
+			+ ", password=" + password + ", group=" + group + ", accountStatus=" + accountStatus + ", createAt="
+			+ createAt + ", updateAt=" + updateAt + ", listPages=" + listPages + ", listDepartments=" + listDepartments
+			+ ", pages=" + pages + ", departments=" + departments + "]";
 }
 
 }

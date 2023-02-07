@@ -108,14 +108,16 @@ public class StaffController {
 	@PostMapping("/insertStaff")
 	@ResponseBody
 	public String saveStaff(@ModelAttribute("insertStaff") StaffRegForm staffRegForm) {
-	
+		System.out.println(staffRegForm);
 		staffService.saveStaff(staffRegForm);
 		return "saved";
 	}
 
-	@GetMapping("/updateStaff")
+	@PatchMapping("/updateStaff")
 	@ResponseBody
 	public String updateStaff(@ModelAttribute("updateStaff")StaffRegForm staffRegForm) {
+	
+		System.out.println(staffRegForm);
 		
 		staffService.updateStaff(staffRegForm);
 		return "updated";		

@@ -143,12 +143,10 @@
 				url : "group/edit/" + id,
 				dataType : 'json',
 				success : function(response) {
-					
 						
-						
-					 $("#groupId").val(response.groupId),
-					 $("#gropName").val(response.groupName), 
-					 $("#groupCode").val(response.groupCode), 
+					 $("#groupId").val(response.groupId);
+					 $("#gropName").val(response.groupName);
+					 $("#groupCode").val(response.groupCode);
  
 					const div = document.getElementById("panelTitle");
 					div.innerHTML = "Edit Group Form";
@@ -165,7 +163,7 @@
 			});
 		}
 		
-		function newDepartmentbtn()
+		function newGroupbtn()
 		{
 			const div = document.getElementById("panelTitle");
 			div.innerHTML = "Create Group Form";
