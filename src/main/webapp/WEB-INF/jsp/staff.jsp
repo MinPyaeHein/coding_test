@@ -200,6 +200,28 @@
 
 		});
 		
+		function getDepStrList(depts)
+		{
+			var str = "";
+			if(typeof depts !== "undefined"){
+				for (j = 0; j < depts.length; j++) {
+					str = str +" / " + depts[j].depName;
+				}
+			}
+			return str;
+		}
+		
+		function getPageStrList(pages)
+		{
+			var str = "";
+			if(typeof pages !== "undefined"){
+				for (j = 0; j < pages.length; j++) {
+					str = str +" / "+ pages[j].pageName;
+				}
+			}
+			return str;
+		}
+		
 		function getCheckedBoxes(chkboxName) {
 			  var checkboxes = document.getElementsByName(chkboxName);
 			  var checkboxesChecked = [];
@@ -224,12 +246,18 @@
 					$('.tr').remove();
 					
 					for (i = 0; i < data.length; i++) {
+						
+						var depts = getDepStrList(data[i].listDepartments)
+					    var pages = getPageStrList(data[i].listPages)
+					
 						$("#tbl_StaffList").append(
 								'<tr class="tr"> <td>' + data[i].staffId
 										+ '</td> <td>' + data[i].name
 										+ '</td> <td>' + data[i].group.groupName
 										+ '</td> <td>' + data[i].email
 										+ '</td> <td>' + data[i].accountStatus
+										+ '</td> <td>' + depts
+										+ '</td> <td>' + pages
 										+ '</td> <td>' + data[i].createAt
 										+ '</td> <td>' + data[i].updateAt
 										+ '</td> <td><input type="button" class="btn btn-warning" onclick="editStaff('

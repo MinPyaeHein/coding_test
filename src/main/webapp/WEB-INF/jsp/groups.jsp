@@ -145,7 +145,7 @@
 				success : function(response) {
 						
 					 $("#groupId").val(response.groupId);
-					 $("#gropName").val(response.groupName);
+					 $("#groupName").val(response.groupName);
 					 $("#groupCode").val(response.groupCode);
  
 					const div = document.getElementById("panelTitle");
@@ -182,7 +182,7 @@
 				url : "updateGroup",
 				data : {
 					groupId : $("#groupId").val(),
-					groupName : $("groupName").val(),
+					groupName : $("#groupName").val(),
 					groupCode : $("#groupCode").val()
 				},
 				success : function(result) {

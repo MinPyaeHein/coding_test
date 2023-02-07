@@ -43,7 +43,7 @@ public class LoanRecordServiceImpl implements LoanRecordService{
 		loanRecord.setAddress(loanRecordForm.getAddress());
 		loanRecord.setAmount(loanRecordForm.getAmount());
 		
-		Date appDate=new SimpleDateFormat("dd/MM/yyyy").parse(loanRecordForm.getApplyDate());  
+		Date appDate=new SimpleDateFormat("yyyy-mm-dd").parse(loanRecordForm.getApplyDate());  
 		loanRecord.setApplyDate(appDate);
 		loanRecord.setCreateAt(new Date());
 		loanRecord.setLoanType(loanRecordForm.getLoanType());
@@ -64,11 +64,11 @@ public class LoanRecordServiceImpl implements LoanRecordService{
 	}
 	@Override
 	public LoanRecord updateLoanRecord(LoanRecordForm loanRecordForm)throws ParseException  {
-		LoanRecord loanRecord=getLoanRecordById(Long.parseLong(loanRecordForm.getStaffId()));
+		LoanRecord loanRecord=getLoanRecordById(loanRecordForm.getLoanId());
 		loanRecord.setPeriod(loanRecordForm.getPeriod());
 		loanRecord.setAddress(loanRecordForm.getAddress());
 		loanRecord.setAmount(loanRecordForm.getAmount());
-		Date appDate=new SimpleDateFormat("dd/MM/yyyy").parse(loanRecordForm.getApplyDate());  
+		Date appDate=new SimpleDateFormat("yyyy-mm-dd").parse(loanRecordForm.getApplyDate());  
 		loanRecord.setApplyDate(appDate);
 		loanRecord.setUpdateAt(new Date());
 		loanRecord.setLoanType(loanRecordForm.getLoanType());
