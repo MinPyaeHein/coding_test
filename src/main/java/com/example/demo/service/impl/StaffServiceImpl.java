@@ -1,8 +1,17 @@
 package com.example.demo.service.impl;
 
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.entity.Department;
@@ -32,6 +41,9 @@ public class StaffServiceImpl implements StaffService{
 	private StaffDepartmentService staffDepartmentService;
 	private StaffPageService staffPageService;
 	private GroupService groupService;
+	
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
 	public StaffServiceImpl(StaffDepartmentService staffDepartmentService,
 			DepartmentService departmentServic, StaffPageService staffPageService,GroupService groupService,PageService pageService, StaffRepository staffRepository) {
 		super();
@@ -53,7 +65,7 @@ public class StaffServiceImpl implements StaffService{
 		Staff staff=new Staff();
 		staff.setName(staffRegForm.getName());
 		staff.setEmail(staffRegForm.getEmail());
-		staff.setPassword(staffRegForm.getPassword());
+		staff.setPassword(passwordEncoder.encode(staffRegForm.getPassword()));
 		staff.setCreateAt(new Date());
 		staff.setUpdateAt(new Date());
 		Group g=groupService.getGroupById(Long.parseLong(staffRegForm.getGroupId()));
@@ -135,6 +147,34 @@ public class StaffServiceImpl implements StaffService{
 		staffPageService.deleteStaffPageByStaffId(id);
 		staffRepository.deleteById(id);	
 		
+	}
+
+
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		List<Staff> staffs=getStaffByEmail(username);
+		Staff staff=null;
+		if(staffs!=null) {
+			staff=staffs.get(0);
+		}
+		if(staff == null) {
+			throw new UsernameNotFoundException("Invalid username or password.");
+		}
+		System.out.println("Arrive Test Security");
+		return new org.springframework.security.core.userdetails.User(staff.getEmail(), staff.getPassword(), mapRolesToAuthorities(this.pageService.getPagetByStaffId(staff.getStaffId())));		
+		
+	}
+
+
+	private Collection<? extends GrantedAuthority> mapRolesToAuthorities(List<Page> pages) {
+		return pages.stream().map(page -> new SimpleGrantedAuthority(page.getPageName())).collect(Collectors.toList());
+		}
+
+
+	@Override
+	public List<Staff> getStaffByEmail(String email) {
+		
+		return this.staffRepository.findByEmail(email);
 	}
 	
 	

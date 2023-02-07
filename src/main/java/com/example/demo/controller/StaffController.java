@@ -1,9 +1,13 @@
 package com.example.demo.controller;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -82,6 +86,7 @@ public class StaffController {
 		return staffRegForms;
 	}
 	
+	
 	@GetMapping("/deleteStaffPath")
 	public String deleteStaff(Model model) {
 		System.out.println("Delete Staff");
@@ -91,7 +96,7 @@ public class StaffController {
 		return "staffs";
 	}
 	
-	 @RequestMapping(value = "/staffManagement", method = RequestMethod.GET)
+	 @RequestMapping(value = "/staffManagement/{id}", method = RequestMethod.GET)
 	  public String showWelcomePage() {
 	        
 	        return "staff";
@@ -122,8 +127,8 @@ public class StaffController {
 		staffService.updateStaff(staffRegForm);
 		return "updated";		
 	}
-
 	
+
 	@GetMapping("/staff/edit/{id}")
 	@ResponseBody
 	public StaffRegForm editStaffForm(@PathVariable Long id) {
