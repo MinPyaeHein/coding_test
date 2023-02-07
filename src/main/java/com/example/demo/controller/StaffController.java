@@ -58,10 +58,8 @@ public class StaffController {
 			List<Page> pages=pageService.getPagetByStaffId(Long.parseLong(s.getStaffId()+""));
 			staffRegForm.setListPages(pages);
 			staffRegForm.setListDepartments(departments);
+			staffRegForms.add(staffRegForm);
 		}
-		
-		
-		
 		model.addAttribute("staffs",staffs );
 		return "staffs";
 	}
