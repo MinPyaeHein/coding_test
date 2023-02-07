@@ -156,28 +156,44 @@
 
 			getAllrecord();
 			
-			$('#addNewStaff').show();
+			const div = document.getElementById("panelTitle");
+			div.innerHTML = "Create Staff Form";
+			
 			$('#staffPanel').hide();
-
+			$('#saveStaff').hide();
+			$('#updateStaff').hide();
+			$('#addNewStaff').show();
+			$('#idUpdatedAt').hide();
+			$('#idCreatedAt').hide();
+			$('#idfield').hide();
+			$('#staffForm')[0].reset();
 
 			$('#saveStaff').click(function() {
+				
 				$.ajax({
 					type : "POST",
 					url : "insertStaff",
 					data : {
 						staffId : $("#staffId").val(),
 						groupId: $("#groupId").val(),
-						pages: $("#pages").val(),
-						departments: $("#departments").val(),
+						pages: getCheckedBoxes("pages"),
+						departments: getCheckedBoxes("departments"),
 						name : $("#name").val(),
 						email : $("#email").val(),
 						password : $("#password").val()
 					},
 					success : function(result) {
+						
 						getAllrecord();
 						
-						$('#staffPanel').hide();
+						console.log($("#pages").val())
+						console.log($("#departments").val())
+						
+						
 						$('#addNewStaff').show();
+						$('#staffPanel').hide();
+						$('#saveStaff').hide();
+						$('#updateStaff').hide();
 						$('#staffForm')[0].reset()
 						
 					},
@@ -188,6 +204,20 @@
 			});
 
 		});
+		
+		function getCheckedBoxes(chkboxName) {
+			  var checkboxes = document.getElementsByName(chkboxName);
+			  var checkboxesChecked = [];
+			 
+			  for (var i=0; i<checkboxes.length; i++) {
+			    
+			     if (checkboxes[i].checked) {
+			        checkboxesChecked.push(checkboxes[i].value);
+			     }
+			  }
+			
+			  return checkboxesChecked.length > 0 ? checkboxesChecked : null;
+		}
 
 		function getAllrecord() {
 			$.ajax({
@@ -236,11 +266,7 @@
 					 $("#createAt").val(response.createAt),
 					 $("#accountStatus").val(response.accountStatus)
 					 
-					 
-					
-					 	
-					 	
-					 
+				
 					const div = document.getElementById("panelTitle");
 					div.innerHTML = "Edit Staff Form";
 					
@@ -248,14 +274,15 @@
 					$('#saveStaff').hide();
 					$('#updateStaff').show();
 					$('#addNewStaff').show();
+					$('#idUpdatedAt').show();
+					$('#idCreatedAt').show();
 					$('#idfield').show();
 					
- 					prepareGroup();
- 					preparePage();
-					prepareDept();
+ 					prepareGroup(response.group.groupId);
+ 					preparePage(response.pages);
+					prepareDept(response.departments);
 					 
-					$("#groupId").val(response.group.groupId);
-					
+			
 				},
 				error : function(err) {
 					alert("error is" + err)
@@ -329,8 +356,10 @@
 			});
 		}
 		
-		function prepareGroup()
+		
+		function prepareGroup(params)
 		{
+			
 			$.ajax({
 				type : "GET",
 				url : "getGroupList",
@@ -344,6 +373,10 @@
 						  var option = document.createElement("option");
 					        option.value = data[i].groupId;
 					        option.text = data[i].groupName.charAt(0).toUpperCase() + data[i].groupName.slice(1);
+					        if(data[i].groupId == params)
+					        	{
+					        	option.selected  = true;
+					        	}
 					        select.appendChild(option);  
 						    
 					  }
@@ -358,8 +391,11 @@
 				}
 			});
 		}
-		function prepareDept()
+		
+		
+		function prepareDept(params)
 		{
+			
 			$.ajax({
 				type : "GET",
 				url : "getDeptlList",
@@ -373,6 +409,12 @@
 						    checkbox.id = 'departments';
 						    checkbox.name = 'departments';
 						    checkbox.value = data[i].depId;
+						    if(typeof params !== "undefined"){
+						    if(params.includes(data[i].depId.toString()))
+						    	{
+						    		checkbox.checked = true;
+						    	}
+						    }
 						    
 						    var label = document.createElement('label')
 						    label.htmlFor = 'departments';
@@ -390,8 +432,9 @@
 			});
 		}
 		
-		function preparePage()
+		function preparePage(params)
 		{
+		
 
 			$.ajax({
 				type : "GET",
@@ -405,8 +448,14 @@
 						    checkbox.id = 'pages';
 						    checkbox.name = 'pages';
 						    checkbox.value = data[i].pageId;
+						    if(typeof params !== "undefined"){
+						    if(params.includes(data[i].pageId.toString()))
+					    	{
+					    		checkbox.checked = true;
+					    	}
+						    }
 						    
-						    var label = document.createElement('label')
+						    var label = document.createElement('label');
 						    label.htmlFor = 'pages';
 						    label.appendChild(document.createTextNode(data[i].pageName));
 
