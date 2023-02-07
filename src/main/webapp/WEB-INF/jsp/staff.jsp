@@ -184,9 +184,6 @@
 						
 						getAllrecord();
 						
-						console.log($("#pages").val())
-						console.log($("#departments").val())
-						
 						
 						$('#addNewStaff').show();
 						$('#staffPanel').hide();
@@ -315,6 +312,9 @@
 				url : "updateStaff",
 				data : {
 					staffId : $("#staffId").val(),
+					groupId: $("#groupId").val(),
+					pages: getCheckedBoxes("pages"),
+					departments: getCheckedBoxes("departments"),
 					name : $("#name").val(),
 					email : $("#email").val(),
 					password : $("#password").val()
