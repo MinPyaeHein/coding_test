@@ -113,7 +113,7 @@ public class StaffController {
 		return "saved";
 	}
 
-	@GetMapping("/updateStaff")
+	@PatchMapping("/updateStaff")
 	@ResponseBody
 	public String updateStaff(@ModelAttribute("updateStaff")StaffRegForm staffRegForm) {
 		

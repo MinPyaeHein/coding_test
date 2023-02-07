@@ -101,10 +101,9 @@ public class StaffServiceImpl implements StaffService{
 		
 		staffDepartmentService.deleteStaffDepartmentByStaffId(staff.getStaffId());
 		
-		
+		System.out.println("staffRegForm.getDepartments()="+staffRegForm.getDepartments().size());
 		for(String d: staffRegForm.getDepartments()) {
 			System.out.println(d);
-
 			Department department =departmentServic.getDepartmentById(Long.parseLong(d));
 			StaffDepartment staffDepartment=new StaffDepartment();
 			StaffDepartmentId staffDepartmentId=new StaffDepartmentId();
@@ -116,6 +115,7 @@ public class StaffServiceImpl implements StaffService{
 		}
 		
 		staffPageService.deleteStaffPageByStaffId(staff.getStaffId());
+		System.out.println("staffRegForm.getPages()="+staffRegForm.getPages().size());
 		
 		for(String s : staffRegForm.getPages()) {
 			
