@@ -1,6 +1,7 @@
 package com.example.demo.service.impl;
 
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -41,9 +42,9 @@ public class StaffServiceImpl implements StaffService{
 	private StaffDepartmentService staffDepartmentService;
 	private StaffPageService staffPageService;
 	private GroupService groupService;
-	
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
+
 	public StaffServiceImpl(StaffDepartmentService staffDepartmentService,
 			DepartmentService departmentServic, StaffPageService staffPageService,GroupService groupService,PageService pageService, StaffRepository staffRepository) {
 		super();
@@ -65,7 +66,9 @@ public class StaffServiceImpl implements StaffService{
 		Staff staff=new Staff();
 		staff.setName(staffRegForm.getName());
 		staff.setEmail(staffRegForm.getEmail());
-		staff.setPassword(passwordEncoder.encode(staffRegForm.getPassword()));
+		staff.setPassword(
+				//staffRegForm.getPassword());
+		passwordEncoder.encode(staffRegForm.getPassword()));
 		staff.setCreateAt(new Date());
 		staff.setUpdateAt(new Date());
 		Group g=groupService.getGroupById(Long.parseLong(staffRegForm.getGroupId()));
@@ -154,20 +157,28 @@ public class StaffServiceImpl implements StaffService{
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		List<Staff> staffs=getStaffByEmail(username);
 		Staff staff=null;
-		if(staffs!=null) {
+		if(staffs!=null&&staffs.size()!=0) {
 			staff=staffs.get(0);
 		}
 		if(staff == null) {
 			throw new UsernameNotFoundException("Invalid username or password.");
 		}
 		System.out.println("Arrive Test Security");
-		return new org.springframework.security.core.userdetails.User(staff.getEmail(), staff.getPassword(), mapRolesToAuthorities(this.pageService.getPagetByStaffId(staff.getStaffId())));		
+	return new org.springframework.security.core.userdetails.User(staff.getEmail(), staff.getPassword(), mapRolesToAuthorities(this.pageService.getPagetByStaffId(staff.getStaffId())));		
 		
 	}
 
 
 	private Collection<? extends GrantedAuthority> mapRolesToAuthorities(List<Page> pages) {
-		return pages.stream().map(page -> new SimpleGrantedAuthority(page.getPageName())).collect(Collectors.toList());
+		for(Page page:pages) {
+		System.out.println(page.getPageName());}
+		List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+        for (Page page : pages) {
+            authorities.add(new SimpleGrantedAuthority(page.getPageCode()));
+        }
+		return authorities;
+         
+		//return pages.stream().map(page -> new SimpleGrantedAuthority(page.getPageCode())).collect(Collectors.toList());
 		}
 
 

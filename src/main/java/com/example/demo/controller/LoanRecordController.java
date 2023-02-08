@@ -1,22 +1,20 @@
 package com.example.demo.controller;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-
-import com.example.demo.entity.Group;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import com.example.demo.entity.LoanRecord;
 import com.example.demo.form.LoanRecordForm;
-import com.example.demo.service.GroupService;
 import com.example.demo.service.LoanRecordService;
 @Controller
 public class LoanRecordController {
@@ -27,8 +25,14 @@ public class LoanRecordController {
 		this.loanRecordService = loanRecordService;
 	}
 	
-	@GetMapping("/loanRecords")
-	public String listLoanRecords(Model model) throws ParseException {
+	 @RequestMapping(value = "/loanManagement", method = RequestMethod.GET)
+	  public String loanManagement() {
+	        
+	        return "loans";
+	  }
+
+	@RequestMapping(value = "/getLoanList", headers = { "Accept=application/json" })
+	public @ResponseBody List<LoanRecord> listLoanRecords() throws ParseException {
 		List<LoanRecord> loanRecords=loanRecordService.getAllLoanRecordsByDepId(Long.parseLong("5"));
 	    System.out.println(loanRecords.size());
 	    
@@ -38,57 +42,43 @@ public class LoanRecordController {
 		Date appDate=new SimpleDateFormat("dd/MM/yyyy").parse("01/07/2022"); 
 		System.out.println(loanRecords.size());
 		
-		
 		loanRecords=loanRecordService.getAllLoanRecordsByAppDate(appDate);
-		model.addAttribute("loanRecords", loanRecordService.getAllLoanRecords());
-		return "loanRecords";
-	}
-	
-	@GetMapping("/loanRecords/new")
-	public String createLoanRecordForm(Model model) {
-		LoanRecord loanRecord = new LoanRecord();
-		model.addAttribute("loanRecord", loanRecord);
-		return "create_loanRecord";
-	}
-	
-	@GetMapping("/loanRecordSavePath")
-	public String saveLoanRecord(@ModelAttribute("loanRecordForm") LoanRecordForm loanRecordForm) throws ParseException {
-	    loanRecordForm.setStaffId("10");
-	    loanRecordForm.setAddress("Dawei");
-	    loanRecordForm.setApplyDate("01/07/2022");
-	    loanRecordForm.setLoanType("Monthly");
-	    loanRecordForm.setPeriod("3");
-	    loanRecordForm.setAmount(200);
-		LoanRecord s=loanRecordService.saveLoanRecord(loanRecordForm);
-		return "redirect:/loanRecords";
-	}
-	
-	@GetMapping("/loanRecords/edit/{id}")
-	public String editLoanRecordForm(@PathVariable Long id,Model model) {
-		model.addAttribute("loanRecord", loanRecordService.getLoanRecordById(id));
 		
-		return "edit_loanRecord";
+		return loanRecordService.getAllLoanRecords();
+	}
+	
+	@PostMapping("/insertLoan")
+	@ResponseBody
+	public String saveLoanRecord(@ModelAttribute("insertLoan") LoanRecordForm loanRecordForm) throws ParseException {
+		loanRecordForm.setStaffId("3");
+		loanRecordService.saveLoanRecord(loanRecordForm);
+		return "success";
 	}
 
-	@GetMapping("/loanRecordUpdPath")
+	@GetMapping("/loan/edit/{id}")
+	@ResponseBody
+	public LoanRecord editLoanRecordForm(@PathVariable Long id) {	
+		return loanRecordService.getLoanRecordById(id);
+	}
+	
+	@PatchMapping("/updateLoan")
+	@ResponseBody
 	public String updateLoanRecord(
-		@ModelAttribute("loanRecordForm")LoanRecordForm loanRecordForm,Model model) throws ParseException {
-	    loanRecordForm.setStaffId("10");
-	    loanRecordForm.setAddress("Yango");
-	    loanRecordForm.setApplyDate("02/07/2022");
-	    loanRecordForm.setLoanType("Monthly");
-	    loanRecordForm.setPeriod("4");
+		@ModelAttribute("loanRecordForm")LoanRecordForm loanRecordForm) throws ParseException {
+		
+		loanRecordForm.setStaffId("2");
 		loanRecordService.updateLoanRecord(loanRecordForm);
 		
-		return "redirect:/loanRecords";		
+		return "success";		
 	}
 	
 
 	
-	@GetMapping("/loanRecords/{id}")
+	@DeleteMapping("/loan/{id}")
+	@ResponseBody
 	public String deleteLoanRecord(@PathVariable Long id) {
 		loanRecordService.deleteLoanRecordById(id);
-		return "redirect:/loanRecords";
+		return "success";
 	}
 	
 }

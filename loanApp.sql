@@ -1,13 +1,12 @@
 
 /* Drop Tables */
-
-DROP TABLE IF EXISTS staff_department;
-DROP TABLE IF EXISTS Department;
-DROP TABLE IF EXISTS loan_record;
 DROP TABLE IF EXISTS staff_page;
-DROP TABLE IF EXISTS page;
+DROP TABLE IF EXISTS staff_department;
+DROP TABLE IF EXISTS loan_record;
 DROP TABLE IF EXISTS Staff;
 DROP TABLE IF EXISTS staff_group;
+DROP TABLE IF EXISTS Department;
+DROP TABLE IF EXISTS page;
 
 CREATE TABLE Department
 (
@@ -138,6 +137,24 @@ ALTER TABLE Staff
 	ON UPDATE RESTRICT
 	ON DELETE RESTRICT
 ;
+insert into department (dep_id,dep_name,dep_desc,dep_code) values(1,'Dept1','dep1','111');
+insert into department (dep_id,dep_name,dep_desc,dep_code) values(2,'Dept2','dep2','111');
+insert into department (dep_id,dep_name,dep_desc,dep_code) values(3,'Dept3','dep3','112');
+insert into Page (page_id,page_name,page_code,page_desc) values(1,'Staff Management','staff_manage','desc');
+insert into Page (page_id,page_name,page_code,page_desc) values(2,'Department Management','dept_manage','desc');
+insert into Page (page_id,page_name,page_code,page_desc) values(3,'Loan Management','loan_manage','desc');
+insert into Page (page_id,page_name,page_code,page_desc) values(4,'Page Management','page_manage','desc');
+insert into Page (page_id,page_name,page_code,page_desc) values(5,'Group Management','group_manage','desc');
+insert into staff_group (group_id,group_name,group_code) values(1,'Super_Admin','111');
+insert into staff_group (group_id,group_name,group_code) values(2,'Sub_Admin','112');
+insert into staff_group (group_id,group_name,group_code) values(3,'mini_Admin','113');
+INSERT INTO staff (staff_id, name, email,password,account_status,created_at,updated_at,group_id)
+VALUES (100,'bluecore1','devt@bluecore.com.mm','$2a$10$M3Lencp9jXBc7T217w5sG.zxi/GYAkQbvLFBn2TLfmBk5Nwc3CsdC','Active',null,null,1);
+insert into staff_page(staff_id,page_id) values(100,1);
+insert into staff_page(staff_id,page_id) values(100,2);
+insert into staff_page(staff_id,page_id) values(100,3);
+insert into staff_page(staff_id,page_id) values(100,4);
+insert into staff_page(staff_id,page_id) values(100,5);
 
-
-
+insert into staff_department(staff_id,dep_id) values(100,1);
+insert into staff_department(staff_id,dep_id) values(100,2);

@@ -29,7 +29,7 @@ public class PageController {
 	}
    
    	@GetMapping("/pageManagement")
-	public String pageManagement(Model model) {
+	public String pageManagement() {
 		
 		return "pages";
 	}

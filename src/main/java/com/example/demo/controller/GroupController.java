@@ -62,6 +62,7 @@ private GroupService groupService;
 	@PatchMapping("/updateGroup")
 	@ResponseBody
 	public String updateGroup(@ModelAttribute("updateGroup")Group group) {
+		System.out.println(group);
 		groupService.updateGroup(group);
 		return "success";	
 	}

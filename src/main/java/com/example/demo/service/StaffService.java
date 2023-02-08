@@ -6,7 +6,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import com.example.demo.entity.Department;
 import com.example.demo.entity.Staff;
 import com.example.demo.form.StaffRegForm;
-public interface StaffService extends UserDetailsService{
+public interface StaffService extends UserDetailsService {
 	
 	List<Staff> getAllStaffs();
 	

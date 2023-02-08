@@ -96,7 +96,7 @@ public class StaffController {
 		return "staffs";
 	}
 	
-	 @RequestMapping(value = "/staffManagement/{id}", method = RequestMethod.GET)
+	 @RequestMapping(value = "/staffManagement", method = RequestMethod.GET)
 	  public String showWelcomePage() {
 	        
 	        return "staff";
