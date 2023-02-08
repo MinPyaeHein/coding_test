@@ -10,6 +10,7 @@ import com.example.demo.form.LoanRecordForm;
 
 
 public interface LoanRecordService {
+	
 	List<LoanRecord> getAllLoanRecords();
 	List<LoanRecord> getAllLoanRecordsByStaffId(Long id);
 	List<LoanRecord> getAllLoanRecordsByDepId(Long id);

@@ -19,7 +19,6 @@ import com.example.demo.service.LoanRecordService;
 import com.example.demo.service.StaffService;
 @Service
 public class LoanRecordServiceImpl implements LoanRecordService{
-	
 	private LoanRecordRepository loanRecordRepository;
 	private StaffService staffService;
 	private DepartmentService departmentService;
@@ -47,7 +46,8 @@ public class LoanRecordServiceImpl implements LoanRecordService{
 		loanRecord.setApplyDate(appDate);
 		loanRecord.setCreateAt(new Date());
 		loanRecord.setLoanType(loanRecordForm.getLoanType());
-		Staff staff=staffService.getStaffById(Long.parseLong(loanRecordForm.getStaffId()));
+		System.out.println("current user="+Utility.staff.getStaffId());
+		Staff staff=staffService.getStaffById(Utility.staff.getStaffId());
 		List<Department> departments=departmentService.getDepartmentByStaffId(staff.getStaffId());
 		if(departments!=null) {
 		Department department=departments.get(0);

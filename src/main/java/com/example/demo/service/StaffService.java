@@ -7,7 +7,7 @@ import com.example.demo.entity.Department;
 import com.example.demo.entity.Staff;
 import com.example.demo.form.StaffRegForm;
 public interface StaffService extends UserDetailsService {
-	
+	public String currentStaffId = "";
 	List<Staff> getAllStaffs();
 	
 	Staff saveStaff(StaffRegForm staffRegForm );
@@ -19,6 +19,8 @@ public interface StaffService extends UserDetailsService {
 	void deleteStaffById(Long id);
 	
 	List<Staff> getStaffByEmail(String email);
+	
+	Staff getStaffByName(String name);
 	
 	
 	

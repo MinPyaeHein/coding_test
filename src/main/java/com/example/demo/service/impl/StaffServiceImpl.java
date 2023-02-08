@@ -66,6 +66,7 @@ public class StaffServiceImpl implements StaffService{
 		Staff staff=new Staff();
 		staff.setName(staffRegForm.getName());
 		staff.setEmail(staffRegForm.getEmail());
+		staff.setAccountStatus("Active");
 		staff.setPassword(
 				//staffRegForm.getPassword());
 		passwordEncoder.encode(staffRegForm.getPassword()));
@@ -108,6 +109,7 @@ public class StaffServiceImpl implements StaffService{
 	Staff staff=getStaffById(Long.parseLong(staffRegForm.getStaffId()));
 		System.out.println("staff.getName()"+staff.getName()+"="+staff.getStaffId());
 		staff.setName(staffRegForm.getName());
+		staff.setAccountStatus("Active");
 		staff.setEmail(staffRegForm.getEmail());
 		staff.setPassword(staffRegForm.getPassword());
 		staff.setCreateAt(staff.getCreateAt());
@@ -153,12 +155,29 @@ public class StaffServiceImpl implements StaffService{
 	}
 
 
-	@Override
+	/*@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		List<Staff> staffs=getStaffByEmail(username);
+		
 		Staff staff=null;
 		if(staffs!=null&&staffs.size()!=0) {
 			staff=staffs.get(0);
+			Utility.staff.setStaffId(staff.getStaffId());
+		}
+		if(staff == null) {
+			throw new UsernameNotFoundException("Invalid username or password.");
+		}
+		System.out.println("Arrive Test Security");
+	return new org.springframework.security.core.userdetails.User(staff.getEmail(), staff.getPassword(), mapRolesToAuthorities(this.pageService.getPagetByStaffId(staff.getStaffId())));		
+		
+	}*/
+
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		Staff staff=getStaffByName(username);
+		if(staff!=null) {
+			
+			Utility.staff.setStaffId(staff.getStaffId());
 		}
 		if(staff == null) {
 			throw new UsernameNotFoundException("Invalid username or password.");
@@ -167,8 +186,6 @@ public class StaffServiceImpl implements StaffService{
 	return new org.springframework.security.core.userdetails.User(staff.getEmail(), staff.getPassword(), mapRolesToAuthorities(this.pageService.getPagetByStaffId(staff.getStaffId())));		
 		
 	}
-
-
 	private Collection<? extends GrantedAuthority> mapRolesToAuthorities(List<Page> pages) {
 		for(Page page:pages) {
 		System.out.println(page.getPageName());}
@@ -184,9 +201,17 @@ public class StaffServiceImpl implements StaffService{
 
 	@Override
 	public List<Staff> getStaffByEmail(String email) {
-		
-		return this.staffRepository.findByEmail(email);
+		List<Staff> staff=this.staffRepository.findByEmail(email);
+		return staff;
 	}
+
+
+	@Override
+	public Staff getStaffByName(String name) {
+		return this.staffRepository.findByName(name);
+	}
+	
+	
 	
 	
 

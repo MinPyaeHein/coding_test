@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.demo.service.StaffService;
 
@@ -18,15 +19,12 @@ public class WelcomeController {
 
 	  @RequestMapping(value = "/", method = RequestMethod.GET)
 	  public String welcomePage(ModelMap model) {
-		/*  UserDetails details = staffService.loadUserByUsername("nini123@gmail.com");
-	      if (details != null ) {
-	    	for(GrantedAuthority gg: details.getAuthorities()) {
-	    		System.out.println(gg.getAuthority());
-	    	}
-		       
-	    	  System.out.println("Hello ...NiNi.");
-	      }*/
+		  
+		 
 		 
 	        return "welcome";
-	  }}
+	  }
+	  
+	 
+}
 	
